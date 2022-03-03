@@ -1,0 +1,122 @@
+<!-- Success toast messages -->
+<p-toast key="save" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+      Condenser&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been saved successfully
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="update" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+      Condenser&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been saved successfully
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="duplicate" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+      Condenser&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been successfully duplicated as
+      <strong>'{{ message.summary }}_Copy'</strong>
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="delete" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+      Condenser&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been deleted successfully
+    </p>
+  </ng-template>
+</p-toast>
+<!-- Error toast messages -->
+<p-toast key="saveError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 4em;">
+      Failed to save&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;condenser
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="existError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 1em;">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ message.summary }}&nbsp;
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="updateError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 3em;">
+      Failed to update&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;condenser
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast
+  key="duplicateError"
+  position="top-center"
+  preventOpenDuplicates="true"
+>
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 2em;">
+      Failed to duplicate&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;condenser
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="deleteError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 3em;">
+      Failed to delete&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;condenser
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="getError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>{{ message.summary }}</p>
+  </ng-template>
+</p-toast>
+<p-toast key="deleteReport" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+       Report&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been deleted successfully
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="discardReport" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>
+       Report&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;has been discarded successfully
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="reportNotDeleted" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 3em;">
+      Failed to delete&nbsp;'<strong>{{ message.summary }}</strong
+      >'&nbsp;report
+    </p>
+  </ng-template>
+</p-toast>
+<p-toast key="chartError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p>{{ message.summary }}</p>
+  </ng-template>
+</p-toast>
+<p-toast key="generalError" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message">
+    <p style="position: relative; right: 3em;" [innerHTML]="message.summary"></p>
+  </ng-template>
+</p-toast>
+<p-toast key="generalSuccess" position="top-center" preventOpenDuplicates="true">
+  <ng-template let-message pTemplate="message" >
+    <p [innerHTML]="message.summary"></p>
+  </ng-template>
+</p-toast>

@@ -1,0 +1,51 @@
+<div class="condensers-list-container">
+  <section class="button-section">
+    <h2 style="color: #333333;padding-left: 0.3rem;">Condenser Configuration</h2>
+    <button mat-raised-button class="btn" (click)="onCreate()">
+      New Condenser
+    </button>
+  </section>
+  <section class="table-section">
+    <mat-card>
+      <dhr-data-table 
+        [cols]="cols"
+        [tableData]="tableData"
+        [paginator]="paginator"
+        [row]="row"
+       
+        [searchPlaceHolder]="searchPlaceHolder"
+        [showCurrentPageReport]="showCurrentPageReport"
+        [scrollable]="scrollable"
+        [styleClass]="styleClass"
+        [sortField]="sortField"
+        scrollHeight="{{scrollHeight}}"
+        [sortOrder]="sortOrder"
+        [globalFilterFields]="globalFilterFields"
+        [headertext]="headertext"
+        [subHeadertext]="subHeadertext"
+        [actionbtn]="actionbtn"
+        [showDeleteAtnBtn]="showDeleteAtnBtn"
+        [showDuplicateAtnBtn]="showDuplicateAtnBtn"
+        [showViewAtnBtn]="showViewAtnBtn"
+        [showDownloadAtnBtn]="showDownloadAtnBtn"
+        [showShareAtnBtn]="showShareAtnBtn"
+        [contentText]="'Condenser'"
+        (deleteEvent)="deleData($event)"
+        (duplicateEvent)="duplicateData($event)"
+        (viewEvent)="viewData($event)"
+      >
+      </dhr-data-table>
+      
+    </mat-card>
+  </section>
+  <div *ngIf="
+              !showSpinner &&
+              tableData.length == 0" class="norecrds-div">
+           
+            <br />
+            <div style="color: #666666; font-size: 18px; align-self: center">
+              No Entries Available!!
+            </div>          
+          </div>
+</div>
+ <mat-spinner style="color: #337ab7;" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60" title="Loading charts....."></mat-spinner>

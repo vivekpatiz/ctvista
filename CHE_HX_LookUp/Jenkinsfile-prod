@@ -1,0 +1,179 @@
+pipeline {
+    agent { label 'buildslave3' }
+    parameters {
+               string(defaultValue: "CHE_HX_LookUp", description: 'API name ', name: 'CI_NAME')
+               string(defaultValue: "", description: 'Release Version', name: 'RELEASE_VERSION')
+               }
+    environment {
+                PROJECT_NAME = "projectashton"
+                DOCKER_REGISTRY = "quay.io"
+                }
+    options {
+            skipDefaultCheckout()
+            }
+    stages {
+        stage('Checkout code') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Docker login'){
+            steps{
+                withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD', usernameVariable : 'DOCKER_USERNAME', \
+                    credentialsId : "8ac0c641-f31f-410f-bba2-c86d7ac0d32a")]){
+                    script
+                    {
+                        sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" quay.io'
+                    }
+                }
+            }
+        }
+        stage('Build step') {
+           /* agent{
+                docker {
+                    image "quay.io/projectashton/devops-base-images:base-java-ci-4.0"
+                    reuseNode true
+                }
+            } */
+            steps {
+                script{
+                    dir("$env.WORKSPACE/${params.CI_NAME}"){
+                        STATUS = 0
+                        STATUS = sh(returnStatus: true, script: '/opt/gradle/gradle-6.5/bin/gradle  clean build')
+                        if (STATUS == 0) {
+                            echo "Generating coverage report"
+                            STATUS = sh(returnStatus: true, script: '/opt/gradle/gradle-6.5/bin/gradle  jacocoTestReport')
+                        }
+                        else {
+                            //echo "Compilation or Junit for the code has failed. Please check your build for more details"
+                            slackSend color: "danger", message: "${env.JOB_NAME} [${currentBuild.displayName}] [${currentBuild.result}] : Compilation or Junit for the code has failed. Please check your build for more details.\
+                           afters ${currentBuild.durationString.replace(' and counting', '')} (<${currentBuild.absoluteUrl}|Open>)"
+                           emailext(
+                                    subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+                                    body: """Compilation or Junit for the code has failed. Please check your build for more details, Check console output at "${ env.BUILD_URL }" ${env.JOB_NAME}""",
+                                    to: "sudhakar.kannan@danaherdigital.com",
+                                    from: "sudhakar.kannan@danaherdigital.com"
+                                   )
+                            sh 'exit 1'
+                        }
+                    }
+                }
+            }
+			/*
+            post{
+                always{
+                    dir("$env.WORKSPACE/${params.CI_NAME}"){
+                    junit 'build/test-results/test/*.xml'
+                     step([
+                           $class                       : 'JacocoPublisher',
+                           execPattern                  : 'build/jacoco/test.exec',
+                           classPattern                 : 'build/classes/java/main',
+                           sourcePattern                : 'src/main/java',
+                           exclusionPattern             : '** /*Test.class',
+                           changeBuildStatus     : true
+                          ])
+                    }
+               }
+            } */
+        }
+        stage('Sonarqube scan') {
+           /* agent{
+                docker {
+                    image "quay.io/projectashton/devops-base-images:base-java-ci-4.0"
+                    reuseNode true
+                }
+            } */
+            steps {
+                script{
+                    dir("$env.WORKSPACE/$CI_NAME"){
+                        echo "running sonar scan"
+                        STATUS_SONAR = sh(returnStatus: true, script: '/opt/gradle/gradle-6.5/bin/gradle sonarqube')
+                        if (STATUS_SONAR == 0) {
+                             echo "SONARscan run suceessfully and quality gates passed"             
+                        }
+                        else {
+                            echo "SONARscan or quality gate check was unsuccessful"
+                            //sh 'exit 1'   
+                        }
+                    }
+                }
+            }
+            post{
+               failure  {
+                          slackSend color: "danger", message: "${env.JOB_NAME} [${currentBuild.displayName}] [${currentBuild.result}] : SONARscan or quality gate check was unsuccessful. Please fix and commit the same., Docker image creation skipped\
+                            afters ${currentBuild.durationString.replace(' and counting', '')} (<${currentBuild.absoluteUrl}|Open>)"
+                            emailext(
+                                    subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+                                    body: """SONARscan or quality gate check was unsuccessful. Please fix and commit the same., Docker image creation skipped ,Check console output at "${ env.BUILD_URL }" ${env.JOB_NAME}""",
+                                    to: "sudhakar.kannan@danaherdigital.com",
+                                    from: "sudhakar.kannan@danaherdigital.com"
+                                   )
+                          //sh 'exit 1'
+                         } 
+            }
+         }
+		 
+        stage('Uploading the artifact to Jfrog Artifactory') {
+            steps {
+                script{
+                    dir("$env.WORKSPACE/$CI_NAME/build/libs"){
+                        BUILD_VERSION=""
+                        if( params.RELEASE_VERSION == "" ) {
+                                BUILD_VERSION=sh ( script: "cat ../../gradle.properties | grep -e '^build_version=' | awk -F '=' '{print \$2}' ",returnStdout: true).trim()
+                               }
+                            else
+                            {
+                                BUILD_VERSION=params.RELEASE_VERSION
+                            }
+                         def PACKAGE_NAME=params.CI_NAME + "-" + "${BUILD_VERSION}" + ".jar"    
+                         sh "mv *.jar ${PACKAGE_NAME}"
+                        
+                        archiveArtifacts artifacts: "${PACKAGE_NAME}", fingerprint: true
+                        rtUpload(
+                            serverId: 'Jfrog-artifactory',
+                            spec: '''{
+                                "files": [
+                                            {
+                                                "pattern": "*.jar",
+                                                "target": "chemtreat-prod/"
+                                            }
+                                        ]
+                                    } ''',
+                            buildName: params.CI_NAME ,
+                             buildNumber: '${env.BUILD_NUMBER}'
+                    )
+                }
+            }
+        }
+    }
+	/*
+	stage('Triggering Prod CD job') {
+    steps {
+              script {
+                    
+                      if (jenkins.model.Jenkins.instance.getItemByFullName("ChemTreat/CHE_HX_LookUp-prod-CD") != null) {
+                            build job: "CHE_HX_LookUp-prod-CD", propagate: false, wait: false, parameters: [
+                                string(name: 'CI_NAME', value: "CHE_HX_LookUp"), string(name: 'RELEASE_VERSION', value: "")]
+                        }
+                    }
+                }
+            }
+		*/
+}
+        
+ post {
+    success {
+        slackSend color: "good", message: "${env.JOB_NAME} [${currentBuild.displayName}] Build suceeded  \
+            afters ${currentBuild.durationString.replace(' and counting', '')} (<${currentBuild.absoluteUrl}|Open>)"
+        emailext(
+            subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+            body: """Build successful, Check console output at "${ env.BUILD_URL }" ${env.JOB_NAME}""",
+            to: "sudhakar.kannan@danaherdigital.com",
+            from: "sudhakar.kannan@danaherdigital.com"
+        )
+}
+    always {
+        cleanWs()
+        }
+    }
+}

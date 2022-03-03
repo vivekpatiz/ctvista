@@ -1,0 +1,12 @@
+<section class="modal-container">
+    <div class="modal-main-header">
+        <div class="modal-header" style="background: #dbe1e5"><h2 style="padding: .575em;">{{data.pageTitle}}</h2><button (click)="onNoResponse()" class="cross-btn"><span style="font-size: 18px;" aria-hidden="true">&#10005;</span></button></div>
+    </div>
+    <mat-dialog-content>
+      <p style="padding-left: .8em; font-size: 13px;">{{data.pagetext}}</p>
+      </mat-dialog-content>
+    <mat-dialog-actions fxLayoutAlign="center none">
+      <button class="leavepagebtn" mat-raised-button (click)="onYesResponse()">{{data.leavepagebtn}}</button>
+      <button class="staypagebtn" mat-raised-button (click)="onNoResponse()" >{{data.staypagebtn}}</button>
+    </mat-dialog-actions>
+</section>

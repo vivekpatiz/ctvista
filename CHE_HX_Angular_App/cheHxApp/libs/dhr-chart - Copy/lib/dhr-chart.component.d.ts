@@ -1,0 +1,34 @@
+import { OnInit, SimpleChanges } from '@angular/core';
+import { EChartOption } from 'echarts';
+import * as i0 from "@angular/core";
+export declare class DhrChartComponent implements OnInit {
+    chartData: any;
+    xAxisLabel: any;
+    yAxislabel: any;
+    chartLabel: any;
+    chartTitle: any;
+    magicType: boolean;
+    saveAsImage: boolean;
+    isMultiSeries: boolean;
+    showyAxisLabel: boolean;
+    showToolbox: boolean;
+    showToolTip: boolean;
+    showxAxisLabel: boolean;
+    isKpiOverView: boolean;
+    color: any;
+    chartOption: EChartOption;
+    options: EChartOption;
+    constructor();
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngAfterViewInit(): void;
+    loadChart(d: any, xl: any, yl: any, cl: any, ct: any, yAxisLabelFlag: any, toolboxFlag: any, tooltipFlag: any, xAxisLabelFlag: any, kpiOverviewflag: any, colorValues: any): void;
+    getChartOptions(d: any, xl: any, yl: any, cl: any, ct: any, yAxisLabelFlag: any, toolboxFlag: any, tooltipFlag: any, xAxisLabelFlag: any, kpiOverviewflag: any, colorValues: any): any;
+    getMultiSeriesChartOptions(xaxis: any, yaxis: any, data: any): void;
+    generateYAxisOption(index: any, y: any): any;
+    generateSeriseData(index: any, y: any, data: any): any;
+    getMultiChartOptions(legends: any, xaxis: any, yaxis: any, seriseData: any): any;
+    formatTime(value: any): any;
+    static ɵfac: i0.ɵɵFactoryDef<DhrChartComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<DhrChartComponent, "dhr-chart", never, { "chartData": "chartData"; "xAxisLabel": "xAxisLabel"; "yAxislabel": "yAxislabel"; "chartLabel": "chartLabel"; "chartTitle": "chartTitle"; "magicType": "magicType"; "saveAsImage": "saveAsImage"; "isMultiSeries": "isMultiSeries"; "showyAxisLabel": "showyAxisLabel"; "showToolbox": "showToolbox"; "showToolTip": "showToolTip"; "showxAxisLabel": "showxAxisLabel"; "isKpiOverView": "isKpiOverView"; "color": "color"; }, {}, never, never>;
+}

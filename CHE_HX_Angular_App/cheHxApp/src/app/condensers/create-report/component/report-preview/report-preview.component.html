@@ -1,0 +1,88 @@
+ <style>
+    body {
+        height: 842px;
+        width: 595px;
+        /* to centre page on screen*/
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+<div [ngClass]="{
+  'Preview-report-view': !pdfState,
+  'Preview-report-pdf': pdfState
+}">
+  <section *ngIf="!pdfState"  class="button-section">
+       <div>  <h3 *ngIf="showSpinner1" class="center">Preparing PDF for Download. Please Wait....</h3>  </div> 
+   <mat-spinner style="color: #337ab7;" *ngIf="showSpinner1" [strokeWidth]="1.5" mode="indeterminate" [diameter]="35" title="Loading charts....."></mat-spinner>
+       
+    <div style="display: flex;justify-content: space-between;">
+      <div *ngIf="(reportId !== '' && reportId !== 'id')" class="page-title">
+        <em class="fa fa-long-arrow-left" (click)="parentURLChange()"  style="cursor: pointer;"
+          aria-hidden="true">
+        </em>&nbsp;{{reportService.report.name}}</div>
+        <div *ngIf="(reportId === '' || reportId === 'id')" class="page-title">
+          <em class="fa fa-long-arrow-left" (click)="editReport()" style="cursor: pointer;"
+            aria-hidden="true">
+          </em>&nbsp;Create Report</div>
+      <div>
+        <a (click)="openModel('Discard')" *ngIf="(reportId === '' || reportId === 'id')" class="btnlink">Discard</a>
+        <a  (click)="openModel('Delete')" *ngIf="(reportId !== '' && reportId !== 'id')" class="btnlink" >Delete</a>
+        <button mat-raised-button class="btnOutline" (click)="editReport()">
+          <img alt="select-icon" class="select-icon" [src]="envURl.editIcon" />
+          Edit
+        </button>
+        <button [disabled]="(reportId === '' || reportId === 'id')" mat-raised-button class="btnprimary" (click)="downloadReport()">
+          Download
+        </button> 
+		
+      </div>
+    </div>
+  </section>
+  <mat-spinner *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60" title="Loading charts.....">
+  </mat-spinner>
+
+  <div *ngIf="!showSpinner"  [ngClass]="{
+    'non-fixed': !pdfState,
+    'pdf-fixed': pdfState
+}">
+<div *ngFor="let pitem of previewLayout; let i = index;">
+    <div id="previewPage" class="widjetCart" >
+        <app-preview-header *ngIf="i== 0" [item]="reportService.report"></app-preview-header>
+        <mat-card class="card" *ngFor="let item of pitem">
+          <mat-card-header *ngIf="item.layoutType !== 'editor' && item.layoutType !== 'chart'">
+            <mat-card-title>
+              <mat-toolbar class="spaceInbtw card-header">
+                <div>
+                  {{item.headerTitle === 'Disclaimer'?'Disclaimer':''}}
+                </div>
+              </mat-toolbar>
+            </mat-card-title>
+
+          </mat-card-header>
+          <mat-card-content *ngIf="item.layoutType === 'editor'">
+            <div class="card-contained" [innerHTML]="item.data.editorData"></div>
+             <P style="break-inside: avoid"></P>
+          </mat-card-content>
+          <mat-card-content *ngIf="item.layoutType === 'executive'">
+            <div class="card-contained" [innerHTML]="item.data.executiveSummary"></div>
+             <P style="page-break-before: always"></P>
+          </mat-card-content>
+          <mat-card-content *ngIf="item.layoutType === 'troubleshooting'">
+            <div class="card-contained" [innerHTML]="item.data.htmlTroubleshooting  + item.data.htmlTroubleshooting1"></div>
+            <P style="break-inside: avoid"></P>
+          </mat-card-content>
+          <mat-card-content *ngIf="item.layoutType === 'chart'">
+            <div class="pavoid">
+            <dhr-chart *ngIf="item.data[0].xlabel" [chartData]="item.data[0].chartdata"
+              [xAxisLabel]="item.data[0].xlabel" [yAxislabel]="item.data[0].yLabel"
+              [chartLabel]="item.data[0].chartLabel" [chartTitle]="item.data[0].chartLabel" 
+              [showyAxisLabel]="true" [showToolTip]="true" [showxAxisLabel]="true">
+            </dhr-chart>
+          </div>
+                <P style="break-inside: avoid"></P>
+          </mat-card-content>
+        </mat-card>
+    </div>
+  </div>
+  </div>
+</div>

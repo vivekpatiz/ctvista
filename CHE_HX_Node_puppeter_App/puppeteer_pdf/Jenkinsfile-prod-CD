@@ -1,0 +1,105 @@
+pipeline {
+    agent { label 'buildslave' }
+    parameters {
+               string(defaultValue: "CHE_HX_Node_puppeter_App", description: 'API name', name: 'CI_NAME')
+               string(defaultValue: "", description: 'Release Version', name: 'RELEASE_VERSION')
+               }
+    environment {
+                PROJECT_NAME = "projectashton"
+                DOCKER_REGISTRY = "quay.io"
+                }
+    options {
+            skipDefaultCheckout()
+            }
+    stages {
+        stage('Checkout code') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Docker login'){
+            steps{
+                withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD', usernameVariable : 'DOCKER_USERNAME', \
+                    credentialsId : "8ac0c641-f31f-410f-bba2-c86d7ac0d32a")]){
+                    script
+                    {
+                        sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" quay.io'
+                    }
+                }
+            }
+        }
+     	 
+		stage('Stop the process') {
+			steps {
+				script{
+					dir("$env.WORKSPACE/$CI_NAME/puppeteer_pdf"){
+							 sshagent (credentials: ['chemtreat-targetserver-Prod']) {
+								sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 52.12.232.240 sudo service chehxnodepuppeterapp stop'
+							} 
+					}
+				}
+			}
+		}
+        stage('Download the artifact from Jfrog Artifactory') {
+            steps {
+                script{
+                    dir("$env.WORKSPACE/$CI_NAME/puppeteer_pdf"){
+                       	BUILD_VERSION=""
+						if( params.RELEASE_VERSION == "" ) {
+                                BUILD_VERSION=sh ( script: "cat package.json| head -3 | grep version | awk -F ':' '{print \$2}' |awk -F '\"' '{print \$2}'",returnStdout: true).trim()
+                               }
+                            else
+                            {
+                                BUILD_VERSION=params.RELEASE_VERSION
+                            }
+					    def PACKAGE_NAME = "${params.CI_NAME}" + "-" + "${BUILD_VERSION}.zip"
+						 print "${PACKAGE_NAME}"
+						STATUS=sh(script: "curl -u piddev:xSBj9paUWE -X GET http://jfrog-pid-elb-576147453.us-east-1.elb.amazonaws.com/artifactory/chemtreat-prod/${PACKAGE_NAME} -o CHE_HX_Node_puppeter_App.zip",returnStdout: true)
+                }
+            }
+        }
+    }
+	stage('Copy Files to target Server') {
+        steps {
+            script{
+                dir("$env.WORKSPACE/$CI_NAME/puppeteer_pdf"){
+						 sshPublisher(publishers: [sshPublisherDesc(configName: 'ChemTreat-Server-Prod', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/opt/CHE_HX_Node_puppeter_App', remoteDirectorySDF: false, removePrefix: '', sourceFiles: "CHE_HX_Node_puppeter_App.zip")], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+				}
+            }
+        }
+    }
+	stage('Start the process') {
+        steps {
+            script{
+                dir("$env.WORKSPACE/$CI_NAME/puppeteer_pdf"){
+						 sshagent (credentials: ['chemtreat-targetserver-Prod']) {
+							sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 52.12.232.240 sudo service chehxnodepuppeterapp start'
+							sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 52.12.232.240 sleep 30'
+							sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 52.12.232.240 sudo service chehxnodepuppeterapp status'
+							sh 'ssh -o StrictHostKeyChecking=no -l ubuntu 52.12.232.240 cat /opt/$CI_NAME/*.log'
+						} 
+				}
+            }
+        }
+    }
+	
+	
+}
+ 
+
+ post {
+    success {
+        slackSend color: "good", message: "${env.JOB_NAME} [${currentBuild.displayName}] Build suceeded  \
+            afters ${currentBuild.durationString.replace(' and counting', '')} (<${currentBuild.absoluteUrl}|Open>)"
+        emailext(
+            subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+            body: """Build successful, Check console output at "${ env.BUILD_URL }" ${env.JOB_NAME}""",
+            to: "sudhakar.kannan@danaherdigital.com",
+            from: "sudhakar.kannan@danaherdigital.com"
+        )
+}
+    always {
+        cleanWs()
+        }
+    }
+}

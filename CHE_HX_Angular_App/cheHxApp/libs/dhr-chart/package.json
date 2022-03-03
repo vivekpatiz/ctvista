@@ -1,0 +1,28 @@
+{
+  "name": "dhr-chart",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.12",
+    "@angular/core": "^9.1.12",
+    "echarts": "^4.8.0",
+    "ng5-slider": "^1.2.4",
+    "ngx-echarts": "^5.1.2",
+    "primeicons": "^4.0.0",
+    "primeng": "^10.0.0-rc.3"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/dhr-chart.umd.js",
+  "module": "fesm5/dhr-chart.js",
+  "es2015": "fesm2015/dhr-chart.js",
+  "esm5": "esm5/dhr-chart.js",
+  "esm2015": "esm2015/dhr-chart.js",
+  "fesm5": "fesm5/dhr-chart.js",
+  "fesm2015": "fesm2015/dhr-chart.js",
+  "typings": "dhr-chart.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.\\nPlease delete and rebuild the package, without compiling with Ivy, before attempting to publish.\\n')\" && exit 1"
+  }
+}

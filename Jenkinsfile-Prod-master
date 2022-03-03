@@ -1,0 +1,39 @@
+api_to_build = []
+def api_to_build = []
+def api_changed = [: ]
+def api_size
+pipeline {
+    agent any
+    stages{
+        stage('Determining APIs changed') {
+            steps {
+                script {
+                    VALUESFILE = sh(returnStdout: true, script: 'git --no-pager diff --name-only HEAD~1 | sort -u \
+                                    | awk \'BEGIN {FS=\"/\"} {print \$1}\' | uniq')
+                    LIST = VALUESFILE.split('\n')
+                    for (String file in LIST) {
+                            api_changed.put(file, "build");
+                    }
+                    api_to_build = api_changed.keySet()
+                    echo "############## APIs to be build ${api_to_build} ##############"
+                    api_size = api_to_build.size()
+                    echo "${api_size}"
+                    //echo "${pr_to_ref}"
+                    //echo "${PR}"
+                }
+            }
+        }
+        stage('Triggering CI job for APIs') {
+            steps {
+                script {
+                    for (api in api_to_build) {
+                      if (jenkins.model.Jenkins.instance.getItemByFullName("ChemTreat/${api}-prod") != null) {
+                            build job: "${api}-prod", propagate: false, wait: false, parameters: [
+                                string(name: 'CI_NAME', value: "${api}"), string(name: 'RELEASE_VERSION', value: "")]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

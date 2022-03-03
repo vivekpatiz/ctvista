@@ -1,0 +1,2133 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Chemtreat HX-v1",
+        "version": "1.0.0",
+        "description": "Chemtreat Heat Exchange API design"
+    },
+    "paths": {
+        "/v1/AssetManagement/Assets": {
+            "summary": "Asset instance",
+            "description": "Asset instance real world entity",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeListEmpty": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeList": [
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "Asset": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetList": [
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                        "name": "Condenser-1",
+                                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "tenantId": "c494912b-d31d-11ea-b09d-025041200001",
+                                                        "status": true,
+                                                        "parentAssetId": "c494912b-d31d-11ea-b09d-045041000001",
+                                                        "calculationMasterId": "223"
+                                                    },
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-0253041000001",
+                                                        "name": "Boiler-1",
+                                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "tenantId": "c494912b-d31d-11ea-b09d-025041200001",
+                                                        "status": true,
+                                                        "parentAssetId": "c494912b-d31d-11ea-b09d-045041000001",
+                                                        "calculationMasterId": "223"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset "
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get all assets",
+                "description": "Get all asset "
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/asset"
+                            },
+                            "examples": {
+                                "asset": {
+                                    "value": {
+                                        "name": "some text",
+                                        "assetTypeId": "some text",
+                                        "tenantId": "some text",
+                                        "status": true,
+                                        "parentAssetId": "some text",
+                                        "calculationMasterId": "some text"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType-success": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error-400": {
+                                        "value": {
+                                            "timestamp": "29-07-2020 07:16:40",
+                                            "message": "Name cannot be null",
+                                            "subErrors": [
+                                                {
+                                                    "object": "Name",
+                                                    " field": "name",
+                                                    "rejectedValue": "",
+                                                    "message": "Name cannot be null"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error": {
+                                        "value": {
+                                            "timestamp": "27-07-2020 07:16:40",
+                                            "message": "Name Already Exists."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Create asset",
+                "description": "asset  creation"
+            }
+        },
+        "/v1/AssetManagement/Assets/{assetId}/": {
+            "summary": "Action on asset type param based on ID",
+            "description": "Action on asset type param based on ID",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "asset": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "asset": {
+                                                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                    "name": "Condenser1",
+                                                    "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                    "tenantId": "c494912b-d31d-11ea-b09d-025041200001",
+                                                    "status": true,
+                                                    "parentAssetId": "c494912b-d31d-11ea-b09d-045041000001",
+                                                    "calculationMasterId": "223"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype param"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "message": "Asset  not found!!"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Asset  by ID",
+                "description": "Get Asset  by ID"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/asset"
+                            },
+                            "examples": {
+                                "asset": {
+                                    "value": {
+                                        "id": "some text",
+                                        "name": "some text",
+                                        "assetTypeId": "some text",
+                                        "tenantId": "some text",
+                                        "status": true,
+                                        "parentAssetId": "some text",
+                                        "calculationMasterId": "some text"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "apisuccess": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "data": {
+                                                "message": "asset  edited successfully"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "edit asset"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Edit Asset",
+                "description": "Edit Asset"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "deleted": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "deleted\n"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Delete Asset Type param by ID",
+                "description": "Delete  Asset Type param by ID"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "asset ID": {
+                            "value": "7ac12154-d32c-11ea-b09d-025041000001"
+                        }
+                    },
+                    "name": "assetId",
+                    "description": "asset Id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/v1/AssetManagement/Tenants": {
+            "summary": "Tenant API",
+            "description": "Tenant API's",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeListEmpty": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "tenantList": [
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "Asset": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "tenantList": [
+                                                    {
+                                                        "id": "c494912b-e31d-11ea-b09d-025041000001",
+                                                        "account_id": 35
+                                                    },
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                        "account_id": 34
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset "
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get all tenants",
+                "description": "Get all tenants"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/asset"
+                            },
+                            "examples": {
+                                "tenant": {
+                                    "value": {
+                                        "account_id": 34
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType-success": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "status": "CREATED"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error-400": {
+                                        "value": {
+                                            "timestamp": "29-07-2020 07:16:40",
+                                            "status": 400,
+                                            "error": "BAD REQUEST",
+                                            "message": "Account Id cannot be null",
+                                            "subErrors": [
+                                                {
+                                                    "object": "Account Id",
+                                                    " field": "Account_Id",
+                                                    "rejectedValue": "",
+                                                    "message": "Account Id cannot be null"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error": {
+                                        "value": {
+                                            "timestamp": "27-07-2020 07:16:40",
+                                            "status": 409,
+                                            "error": "CONFLICT",
+                                            "message": "Account Id Already Exists."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "error"
+                    }
+                },
+                "summary": "Create Tenant",
+                "description": "tenant  creation"
+            }
+        },
+        "/v1/AssetManagement/Tenants/{tenantId}/": {
+            "summary": "Action on asset type param based on ID",
+            "description": "Action on asset type param based on ID",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "asset": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "tenant": {
+                                                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                    "accountId": "34"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype param"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            " status": 404,
+                                            "error": "Not Found",
+                                            "message": "Tenant  not found!!"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Tenant by ID",
+                "description": "Get tenant  by ID"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "tenant": {
+                                    "value": {
+                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                        "account_id": 334
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "tenant": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "data": {
+                                                "message": "Tenant  edited successfully"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Edit Tenant",
+                "description": "Edit Tenant"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "deleted": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "deleted\n"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Delete tenant by ID",
+                "description": "Delete  Tenant by ID"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "tenantId": {
+                            "value": "ae07be64-d547-11ea-b09d-025041000001"
+                        }
+                    },
+                    "name": "tenantId",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/v1/AssetManagement/AssetTypes": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeList": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeList": [
+                                                    {
+                                                        "id": "198beeff-d26b-11ea-b09d-025041000001",
+                                                        "name": "Heat Exchanger"
+                                                    },
+                                                    {
+                                                        "id": "d1ec6cc8-d26b-11ea-b09d-025041000001",
+                                                        "name": "Cooling Condenser"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "assetTypeListEmpty": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeList": [
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset types"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get all asset types",
+                "description": "Get all asset type"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetType"
+                            },
+                            "examples": {
+                                "assetType": {
+                                    "value": {
+                                        "name": "Cooling Condenser-type1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType-success": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error": {
+                                        "value": {
+                                            "timestamp": "27-07-2020 07:16:40",
+                                            "message": "Name Already Exists."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "error"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error-400": {
+                                        "value": {
+                                            "timestamp": "29-07-2020 07:16:40",
+                                            "message": "Name cannot be null",
+                                            "subErrors": [
+                                                {
+                                                    "object": "Name",
+                                                    " field": "name",
+                                                    "rejectedValue": "",
+                                                    "message": "Name cannot be null"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Create asset type",
+                "description": "asset type creation"
+            }
+        },
+        "/v1/AssetManagement/AssetTypes/{assetTypeId}/": {
+            "summary": "Action on asset type by  asset type id",
+            "description": "Action on asset type by  asset type id",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "31-07-2020",
+                                            "data": {
+                                                "assetType": {
+                                                    "id": "d1ec6cc8-d26b-11ea-b09d-025041000001",
+                                                    "name": "Heat Exchanger"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "message": "Asset type not found!!"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Asset type by ID",
+                "description": "get Asset type by asset type id"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetType"
+                            },
+                            "examples": {
+                                "assetType": {
+                                    "value": {
+                                        "id": "198beeff-d26b-11ea-b09d-025041000001",
+                                        "name": "Heat Exchanger-type1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "apisuccess": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "data": {
+                                                "message": "asset type  edited successfully"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Edit Asset Type",
+                "description": "Edit asset type"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "deleted": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "deleted\n"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Delete asset type on id",
+                "description": "Delete asset type based on asset-type id"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "assetTypeId": {
+                            "value": "d1ec6cc8-d26b-11ea-b09d-025041000001"
+                        }
+                    },
+                    "name": "assetTypeId",
+                    "description": "asset type id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/v1/AssetManagement/AssetParams/": {
+            "summary": "asset param",
+            "description": "asset  param",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeList": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetParamList": [
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                        "name": "Inlet Pressure",
+                                                        "assetId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "dataType": "double",
+                                                        "status": false,
+                                                        "unitOfMeasureId": "kPa",
+                                                        "customerTagName": "XYZ",
+                                                        "descriptor": "inlet xsd",
+                                                        "type": "water pressure",
+                                                        "value": "0.4231",
+                                                        "calculationMasterId": "23"
+                                                    },
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041002001",
+                                                        "name": "Outlet Pressure",
+                                                        "assetId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "dataType": "double",
+                                                        "status": false,
+                                                        "customerTagName": "SDS",
+                                                        "descriptor": "inlet ree",
+                                                        "type": "water pressure",
+                                                        "unitOfMeasureId": "kPa",
+                                                        "value": "8.4231",
+                                                        "calculationMasterId": "23"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "assetTypeListEmpty": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetParamList": [
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset  param"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "error": {
+                                        "value": {
+                                            "code": ""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset  param"
+                    }
+                },
+                "summary": "Get all asset params",
+                "description": "Get all asset  param"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetParam"
+                            },
+                            "examples": {
+                                "assetTypeParam": {
+                                    "value": {
+                                        "name": "Back Pressure",
+                                        "assetId": "c494912b-d31d-11ea-b09d-025041000002",
+                                        "dataType": "double",
+                                        "status": false,
+                                        "unitOfMeasureId": "kPa",
+                                        "customerTagName": "XYZ",
+                                        "descriptor": "inlet xsd",
+                                        "type": "water pressure",
+                                        "value": "0.4231",
+                                        "calculationMasterId": "23"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType-success": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success asset  param "
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error-400": {
+                                        "value": {
+                                            "timestamp": "29-07-2020 07:16:40",
+                                            "status": 400,
+                                            "error": "BAD REQUEST",
+                                            "message": "Name cannot be null",
+                                            "subErrors": [
+                                                {
+                                                    "object": "Name",
+                                                    " field": "name",
+                                                    "rejectedValue": "",
+                                                    "message": "Name cannot be null"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request asset type param "
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error": {
+                                        "value": {
+                                            "timestamp": "27-07-2020 07:16:40",
+                                            "status": 409,
+                                            "error": "CONFLICT",
+                                            "message": "Name Already Exists."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "error asset type param "
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Create asset param",
+                "description": "asset  param  creation for each asset "
+            }
+        },
+        "/v1/AssetManagement/AssetParams/{assetParamId}/": {
+            "summary": "Action on asset type param based on ID",
+            "description": "Action on asset type param based on ID",
+            "get": {
+                "parameters": [
+                    {
+                        "examples": {
+                            "assetParam": {
+                                "value": "ae07be64-d547-11ea-b09d-025041000001"
+                            }
+                        },
+                        "name": "assetParamId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeParam": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetParam": {
+                                                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                    "name": "Inlet Pressure",
+                                                    "assetId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                    "dataType": "double",
+                                                    "status": false,
+                                                    "unitOfMeasureId": "kPa",
+                                                    "customerTagName": "XYZ",
+                                                    "descriptor": "inlet xsd",
+                                                    "type": "water pressure",
+                                                    "value": "0.4231",
+                                                    "calculationMasterId": "23"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype param"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "message": "Asset type Param not found!!"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Asset  param by ID",
+                "description": "Get Asset  param by ID"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetParam"
+                            },
+                            "examples": {
+                                "assetParam": {
+                                    "value": {
+                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                        "name": "Inlet Pressure",
+                                        "assetId": "c494912b-d31d-11ea-b09d-025041000002",
+                                        "dataType": "double",
+                                        "status": false,
+                                        "unitOfMeasureId": "kPa",
+                                        "customerTagName": "XYZ",
+                                        "descriptor": "inlet xsd",
+                                        "type": "water pressure",
+                                        "value": "0.4221",
+                                        "calculationMasterId": "23"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetParam": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "data": {
+                                                "message": "asset  param edited successfully"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Success edit"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Edit Asset param"
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "examples": {
+                            "assetparam": {
+                                "value": "ae07be64-d547-11ea-b09d-025041000001"
+                            }
+                        },
+                        "name": "assetParamId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "deleted": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "deleted\n"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Delete Asset Type param by ID",
+                "description": "Delete  Asset Type param by ID"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "assetParamId": {
+                            "value": "dc68c8ab-d60a-11ea-b09d-025041000001"
+                        }
+                    },
+                    "name": "assetParamId",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/v1/AssetManagement/AssetTypeParams": {
+            "summary": "asset type param",
+            "description": "asset type param",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeList": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeParamList": [
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                        "name": "Wall thickness in inches",
+                                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "dataType": "double",
+                                                        "status": false,
+                                                        "unitOfMeasureId": "inch",
+                                                        "value": "0.4231",
+                                                        "calculationMasterId": "23"
+                                                    },
+                                                    {
+                                                        "id": "c494912b-d31d-11ea-b09d-025041002001",
+                                                        "name": "Wall thickness in mm",
+                                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                        "dataType": "double",
+                                                        "status": false,
+                                                        "unitOfMeasureId": "millimeter",
+                                                        "value": "8.4231",
+                                                        "calculationMasterId": "23"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "assetTypeListEmpty": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeParamList": [
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "List of asset type param"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get all asset type params",
+                "description": "Get all asset type param"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetTypeParam"
+                            },
+                            "examples": {
+                                "assetTypeParam": {
+                                    "value": {
+                                        "name": "Arsenical Copper",
+                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                        "dataType": "double",
+                                        "status": false,
+                                        "unitOfMeasureId": "inch",
+                                        "value": "0.4231",
+                                        "calculationMasterId": "23"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetType-success": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success asset type param "
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error-400": {
+                                        "value": {
+                                            "timestamp": "29-07-2020 07:16:40",
+                                            "status": 400,
+                                            "error": "BAD REQUEST",
+                                            "message": "Name cannot be null",
+                                            "subErrors": [
+                                                {
+                                                    "object": "Name",
+                                                    " field": "name",
+                                                    "rejectedValue": "",
+                                                    "message": "Name cannot be null"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "bad request asset type param "
+                    },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType-error": {
+                                        "value": {
+                                            "timestamp": "27-07-2020 07:16:40",
+                                            "status": 409,
+                                            "error": "CONFLICT",
+                                            "message": "Name Already Exists."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "error asset type param "
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Create asset type param",
+                "description": "asset type param  creation for each asset type"
+            }
+        },
+        "/v1/AssetManagement/AssetTypeParams/{assetTypeParamId}/": {
+            "summary": "Action on asset type param based on ID",
+            "description": "Action on asset type param based on ID",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeParam": {
+                                        "value": {
+                                            "timestamp": "31-07-2020 12:12:12",
+                                            "data": {
+                                                "assetTypeParam": {
+                                                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                                    "name": "Wall thickness in inches",
+                                                    "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                                    "dataType": "double",
+                                                    "status": false,
+                                                    "unitOfMeasureId": "inch",
+                                                    "value": "0.4231",
+                                                    "calculationMasterId": "23"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype param"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "message": "Asset type Param not found!!"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Asset Type param by ID",
+                "description": "Get Asset Type param by ID"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/assetTypeParam"
+                            },
+                            "examples": {
+                                "assetTypeParam": {
+                                    "value": {
+                                        "id": "c494912b-d31d-11ea-b09d-025041000001",
+                                        "name": "Wall thickness in inches",
+                                        "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                                        "dataType": "double",
+                                        "status": true,
+                                        "unitOfMeasureId": "inch",
+                                        "value": "0.4231",
+                                        "calculationMasterId": "23"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "assetTypeParam": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "data": {
+                                                "message": "asset type param edited successfully"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Edit Asset Type Param",
+                "description": "Edit Asset Type Param"
+            },
+            "delete": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "deleted": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "deleted\n"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Delete Asset Type param by ID",
+                "description": "Delete  Asset Type param by ID"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "ID": {
+                            "value": "d1ec6cc8-d26b-11ea-b09d-025041000001\t\r\n"
+                        }
+                    },
+                    "name": "assetTypeParamId",
+                    "description": "assetTypeParamId",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/v1/CalculationEngine/runCalculation": {
+            "post": {
+                "requestBody": {
+                    "description": "run calculation example request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/asset"
+                            },
+                            "examples": {
+                                "calcReq": {
+                                    "value": {
+                                        "input": [
+                                            {
+                                                "gross_plant_production": 647,
+                                                "plant_max_load": 640,
+                                                "cw_temp_in": 84.66,
+                                                "steam_turbine_load": 0,
+                                                "steam_latent_heat_enthalpy": 1035.94,
+                                                "total_steam_enthalpy": 1105.99,
+                                                "target_bp_overall": 2.57,
+                                                "condenser_saturated_steam_temp": 112.6,
+                                                "steam_enthalpy_overall": 1109.06,
+                                                "condenser_operating_bp": 2.8,
+                                                "cw_temp_out": 104.5,
+                                                "ambient_barometric_pressure": 29.92,
+                                                "cw_inlet_pressure": 11.5,
+                                                "cw_outlet_pressure": 8,
+                                                "cw_inlet_temp_corr_factor": 1.045,
+                                                "steam_enthalpy_condenser_only": 1110,
+                                                "design_cw_pressure_drop": 10,
+                                                "total_boiler_steam_flow": 4200,
+                                                "total_attemp_steam_flow": 120,
+                                                "total_cogen_steam_flow": 0,
+                                                "design_tr": 17.9,
+                                                "design_cf": 75,
+                                                "calculated_velocity": 7,
+                                                "typical_sale_price": 45,
+                                                "average_fuel_costs_per_mmbtus": 1.15,
+                                                "total_tube_id_flow_area": 49.7,
+                                                "condensing_surface_area": 224969,
+                                                "design_water_flow": 156128,
+                                                "co2_emmission_expected": 8219016,
+                                                "extraction_steam": 34,
+                                                "number_of_pressures": 1,
+                                                "typical_heat_rate_penalty": 1,
+                                                "typical_heat_rate": 7500,
+                                                "design_uideal": 696,
+                                                "tube_metal_and_wall_corr_factor": 0.862,
+                                                "calculated_moisture": 9.4,
+                                                "_id": "123"
+                                            }
+                                        ],
+                                        "engine": "java",
+                                        "function": "masterCalc"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "success": {
+                                        "value": {
+                                            "timestamp": "some text",
+                                            "data": {
+                                                "result": [
+                                                    {
+                                                        "_id": "123",
+                                                        "percent_of_full_load": 101,
+                                                        "average_cw_inlet_water_temp": 84.66,
+                                                        "average_cw_outlet_water_temp": 104.5,
+                                                        "measured_cw_tr": 19.8,
+                                                        "extraction_steam_flow": 1428000,
+                                                        "exhaust_turbine_steam_flow": 2892000,
+                                                        "calculated_design_moisture_content_in_steam": 9.4,
+                                                        "moisture_content_in_steam": 271848,
+                                                        "effective_turbine_steam_flow": 2620152,
+                                                        "condenser_heat_duty": 2714320262,
+                                                        "target_tr_based_on_duty_design_flow": 34.77,
+                                                        "tr_deviation": -14.97,
+                                                        "target_cw_outlet_temp_overall": 119.43,
+                                                        "u_design_overall": 626.95,
+                                                        "u_actual_overall": 47021.25,
+                                                        "ntu_overall": 135.51,
+                                                        "bp_deviation_overall": 0.23,
+                                                        "heat_rate_deviation_overall": 1725,
+                                                        "est_excess_co2_emissions_overall": 9173038282,
+                                                        "steam_enthalpy_deviation_overall": -3.07,
+                                                        "total_enthalpy_deviation_overall": -2620155.07,
+                                                        "production_deviation_overall": -1.69,
+                                                        "dollar_lost_per_day": -1825.2,
+                                                        "est_excess_fuel_burned_overall": -5759426.44,
+                                                        "est_excess_fuel_dollar_per_day_overall": -158.96,
+                                                        "calc_current_cw_flow": 274173.76,
+                                                        "calc_current_cw_velocity": 12.29,
+                                                        "calc_cw_delta_p": 3.5,
+                                                        "production_deviation_condenser_only": -1.69,
+                                                        "cw_outlet_temp_condenser_only": 104.46,
+                                                        "measured_lmtd": 16.02,
+                                                        "measured_cw_ttd": 8.1,
+                                                        "measured_itd": 27.94,
+                                                        "atm_pressure_psia": 27.94,
+                                                        "atm_pressure_kpa": 101.21,
+                                                        "spec_sheet_design_cw_flow": 156128,
+                                                        "design_cw_velocity": 7,
+                                                        "spec_sheet_design_cw_delta": 10
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "success"
+                    }
+                },
+                "summary": "run calculation"
+            }
+        },
+        "/v1/AssetManagement/Assets/{tenantId}/{assetTypeName}": {
+            "summary": "Action on asset and tenant ID",
+            "description": "Action on asset type param based on ID",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiSuccess"
+                                },
+                                "examples": {
+                                    "asset": {
+                                        "value": {
+                                            "timestamp": "26-08-2020 10:18:47",
+                                            "data": [
+                                                {
+                                                    "id": "8deb660f-e2de-11ea-8dff-025041000001",
+                                                    "createdAt": "2020-08-20 17:19:46",
+                                                    "updatedAt": "2020-08-20 17:19:50",
+                                                    "createdBy": "Kevin",
+                                                    "updatedBy": "Kevin",
+                                                    "name": "Condenser-2",
+                                                    "status": true,
+                                                    "facilityName": "Facility-1",
+                                                    "accountName": "Tenaska",
+                                                    "systemName": "Tenaska"
+                                                },
+                                                {
+                                                    "id": "d3714dfe-d8b7-11ea-b09d-025041000001",
+                                                    "createdAt": "2020-08-20 17:19:46",
+                                                    "updatedAt": "2020-08-20 17:19:50",
+                                                    "createdBy": "Kevin",
+                                                    "updatedBy": "Kevin",
+                                                    "name": "Condenser-1",
+                                                    "status": true,
+                                                    "facilityName": "Facility-1",
+                                                    "accountName": "Tenaska",
+                                                    "systemName": "Tenaska"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype param"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/apiError"
+                                },
+                                "examples": {
+                                    "assetType": {
+                                        "value": {
+                                            "timestamp": "30-07-2020 12:12:12",
+                                            "message": "Asset  not found!!"
+                                        }
+                                    },
+                                    "tenant not found": {
+                                        "value": {
+                                            "timestamp": "26-08-2020 12:49:20",
+                                            "message": "Tenant Not found"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "assettype"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/apiErrorResponse"
+                    }
+                },
+                "summary": "Get Asset  by tenant and type",
+                "description": "Get Asset  by ID"
+            },
+            "parameters": [
+                {
+                    "examples": {
+                        "asset ID": {
+                            "value": "7ac12154-d32c-11ea-b09d-025041000001"
+                        }
+                    },
+                    "name": "assetTypeName",
+                    "description": "asset Id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                },
+                {
+                    "examples": {
+                        "1": {
+                            "value": "1"
+                        }
+                    },
+                    "name": "tenantId",
+                    "description": "tenant id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "assetType": {
+                "title": "Root Type for assetType",
+                "description": "assetType",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "198beeff-d26b-11ea-b09d-025041000001",
+                    "name": "Heat Exchanger"
+                }
+            },
+            "apiError": {
+                "title": "Root Type for apiError",
+                "description": "apiError Stub",
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "debugMessage": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "timestamp": "",
+                    "status": "",
+                    "error": "",
+                    "message": "",
+                    "debugMessage": "",
+                    "subErrors": [
+                        {
+                            "object": "",
+                            " field": "",
+                            "rejectedValue": "",
+                            "message": ""
+                        }
+                    ]
+                }
+            },
+            "subError": {
+                "title": "Root Type for subError",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "object": {
+                        "type": "string"
+                    },
+                    " field": {
+                        "type": "string"
+                    },
+                    "rejectedValue": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "object": "",
+                    " field": "",
+                    "rejectedValue": "",
+                    "message": ""
+                }
+            },
+            "apiSuccess": {
+                "title": "Root Type for apiSuccess",
+                "description": "api success prototype",
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                },
+                "example": {
+                    "timestamp": "",
+                    "status": "",
+                    "data": {
+
+                    }
+                }
+            },
+            "assetTypeParam": {
+                "title": "Root Type for assetTypeParam",
+                "description": "asset type param",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "assetTypeId": {
+                        "type": "string"
+                    },
+                    "calculationMasterId": {
+                        "type": "string"
+                    },
+                    "unitOfMeasureId": {
+                        "type": "string"
+                    },
+                    "dataType": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "some text",
+                    "name": "some text",
+                    "status": "some text",
+                    "value": "some text",
+                    "assetTypeId": "some text",
+                    "calculationMasterId": "some text",
+                    "unitOfMeasureId": "some text",
+                    "dataType": "some text"
+                }
+            },
+            "asset": {
+                "title": "Root Type for asset",
+                "description": "asset instance",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "assetTypeId": {
+                        "type": "string"
+                    },
+                    "tenantId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "parentAssetId": {
+                        "type": "string"
+                    },
+                    "calculationMasterId": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                    "name": "",
+                    "assetTypeId": "c494912b-d31d-11ea-b09d-025041000002",
+                    "tenantId": "c494912b-d31d-11ea-b09d-025041200001",
+                    "status": false,
+                    "parentAssetId": "c494912b-d31d-11ea-b09d-045041000001",
+                    "calculationMasterId": "23"
+                }
+            },
+            "assetParam": {
+                "title": "Root Type for assetParam",
+                "description": "assetParam",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "assetId": {
+                        "type": "string"
+                    },
+                    "dataType": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "unitOfMeasureId": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "customerTagName": {
+                        "type": "string"
+                    },
+                    "descriptor": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "calculationMasterId": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": "",
+                    "name": "",
+                    "assetId": "",
+                    "dataType": "",
+                    "status": "",
+                    "unitOfMeasureId": "",
+                    "value": "",
+                    "customerTagName": "",
+                    "descriptor": "",
+                    "type": "",
+                    "calculationMasterId": ""
+                }
+            },
+            "tenant": {
+                "title": "Root Type for tenant",
+                "description": "tenant",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "id": "c494912b-d31d-11ea-b09d-025041000001",
+                    "account_id": 34
+                }
+            }
+        },
+        "responses": {
+            "apiErrorResponse": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "error": {
+                                "value": {
+                                    "timestamp": "",
+                                    "message": "",
+                                    "code": "",
+                                    "subErrors": [
+                                        {
+                                            "object": "",
+                                            " field": "",
+                                            "rejectedValue": "",
+                                            "message": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "apiSuccessResponse": {
+                "content": {
+                    "application/json": {
+                        "examples": {
+                            "success": {
+                                "value": {
+                                    "timestamp": "31-07-2020 12:12:12",
+                                    "data": {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "{\r\n    \"timestamp\": \"31-07-2020 12:12:12\",\r\n    \" status\": \"OK\",\r\n    \"data\": {\r\n    }\r\n}"
+            }
+        }
+    }
+}

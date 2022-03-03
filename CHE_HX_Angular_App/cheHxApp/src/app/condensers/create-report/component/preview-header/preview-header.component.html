@@ -1,0 +1,35 @@
+<div class="report-header">
+      <div class="clm">
+       <h2>{{reportName}}</h2>
+       <p>
+       <img  alt="select-icon" class="select-icon" [src]="envURl.facilityIcon"/>
+       <mat-label>{{facalityName}}</mat-label>
+       </p>
+       <p>
+         <img alt="select-icon" class="select-icon" [src]="envURl.systemIcon"/>
+        <mat-label>{{systemName}}</mat-label>
+       </p>
+      </div>      
+      <div class="clm" >
+          <div class="clm">
+            <span><strong>Condenser Name</strong></span>
+             <span>{{condenserName}}</span>
+          </div>
+          <div class="clm">
+            <span><strong>Date Range</strong></span>
+             <span>{{dateRange}}</span>
+          </div>
+        
+      </div>
+      <div class="clm">
+        <div class="clm">
+            <span><strong>Load Range</strong></span>
+            <span>{{loadRange}}</span>
+          </div>
+          <div class="clm">
+             <span><strong>Created by</strong></span>
+             <span>{{createdBy}}</span>
+          </div>
+      </div>
+
+</div>

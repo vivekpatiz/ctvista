@@ -1,0 +1,265 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/primeng/resources/themes/saga-blue/theme.css";
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules//primeflex/primeflex.css";
+
+/* fallback */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+  }
+  /* fallback */
+  @font-face {
+    font-family: 'Material Icons Outlined';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v25/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2) format('woff2');
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .material-icons-outlined {
+    font-family: 'Material Icons Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+  .mat-dialog-container{
+    display: block !important;
+    padding: 0px !important;
+    border-radius: 6px !important ;
+    overflow: hidden !important;
+}
+.mat-dialog-actions {
+  direction: rtl;
+}
+.mat-dialog-content{
+  margin-bottom: 2em !important;
+  height: 5em !important;
+  margin-top: 2em !important;
+}
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+body {
+  overflow: hidden;
+  height: 650px;
+  width: 100%;
+  background: #f3f5f6;
+  margin: 0;
+  font-family: 'Segoe UI' !important;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b7b7b7;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: #dbe1e5 !important;
+  color: #333333;
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #e9ecef;
+  border-width: 0 0 1px 0;
+  font-weight: 500;
+  transition: box-shadow 0.2s;
+}
+.p-datatable .p-sortable-column.p-highlight {
+  font-weight: 700;
+  background: #f8f9fa;
+  color: #333333;
+}
+.p-datatable .p-sortable-column {
+  outline-color: #dbe1e5;
+}
+.p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+  color: #333333;
+  font-weight: 700;
+}
+.md-drppicker {
+  top: auto !important;
+  left: auto !important;
+}
+.md-drppicker .btn.btn-default{
+  width: 7em;
+  color: #333333 !important;
+  background-color: #ffffff !important;
+}
+.md-drppicker .btn{
+  width: 7em !important;
+  left: 0px !important;
+  margin-left: .5em !important;
+  background: #3f92da !important;
+}
+.md-drppicker td.active{
+  background: #3f92da !important;
+}
+.md-drppicker td.off.end-date{
+  background-color: #fff !important;
+  border-color: transparent !important;
+  color: #999 !important;
+}
+.md-drppicker td.off.start-date {
+  background-color: #fff !important;
+  border-color: transparent !important;
+  color: #999 !important;
+}
+.md-drppicker .ranges ul li button.active{
+  background: #3f92da !important;
+}
+
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.1rem #008AFF;
+  border-color: #2196F3;
+}
+.p-dropdown:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.1rem #008AFF;
+  border-color: #2196F3;
+}
+.mat-select-panel{
+  position: fixed !important;
+  left: 1.3em !important;
+   top: 2em !important;
+}
+// .mat-select-panel-wrap{
+//   position: relative;
+// }
+.mat-form-field-flex {
+    border: 1.5px solid #d4d9df;
+    border-radius: 3px;
+    text-align: left;
+    padding-left: 1em;
+}
+.mat-form-field {
+  margin-top: .5em;
+}
+// .mat-form-field-wrapper {
+//   padding-bottom: 0px !important;
+//   width: 15em !important;
+// }
+.mat-select-placeholder {
+  position: absolute !important;
+  top: -7px !important;
+}
+.dashboard-body .mat-select-arrow { opacity: 0 !important; }
+h3{
+  color: #333333
+}
+.mat-form-field-infix{
+display: flex !important;
+}
+.mat-tooltip {
+  /* your own custom styles here */ 
+  /* e.g. */
+  background: #fff !important;
+  color: #333333 !important;
+  font-size: 12px;
+  box-shadow: 2px 2px 4px 2px #aaaaaa !important;
+}
+.mat-card, .mat-tab-group,.p-component,.mat-checkbox,.mat-stepper-horizontal,.mat-tab-label,.mat-typography,.mat-form-field,.mat-tab-link,.p-inputtext,.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+  font-family: 'Segoe UI' !important;
+}
+.mat-typography {
+  font: 400 14px/20px 'Segoe UI' !important;
+}
+.mat-typography h2 {
+  font: 500 20px/36px 'Segoe UI' !important;
+}
+.mat-typography h3 {
+  font: 700 16px/36px 'Segoe UI' !important;
+}
+.mat-typography h4 {
+  font: 400 15px/24px 'Segoe UI' !important;
+}
+.mat-form-field {
+  text-align: center !important;
+}
+.example-margin .mat-checkbox-ripple .mat-ripple-element,.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #3F92DA !important;
+  color: #666666;
+}
+.create-report .menuIteam .mat-form-field-label{
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #666666;
+  top:15px;
+}
+.quote {
+  color: #8cc540;
+  font-style: italic;
+}
+
+.redText {
+  color: Red;
+  font-size: 12px;
+  font-family: Segoe UI;
+}
+
+h1.titleText {
+  color: #69a8cf;
+  text-align: left;
+  margin-top: 40px;
+  font-weight: normal;
+}
+.angular-editor-textarea font[size='7'] {
+  line-height: 1;
+}
+.p-toast p{
+  right: 10px !important;
+}
+.p-dropdown-items-wrapper {
+  overflow: auto;
+  min-width: 250px;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  margin: 0;
+  padding: .5rem 1rem;
+  border: 0;
+  color: #495057;
+  background: transparent;
+  transition: box-shadow .2s;
+  border-radius: 0;
+  overflow: inherit;
+}

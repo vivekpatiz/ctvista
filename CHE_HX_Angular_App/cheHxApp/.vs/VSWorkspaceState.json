@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\condensers",
+    "\\src\\app\\condensers\\create-report",
+    "\\src\\app\\condensers\\create-report\\component",
+    "\\src\\app\\condensers\\create-report\\component\\report-preview",
+    "\\src\\app\\condensers\\report-listview",
+    "\\src\\app\\condensers\\report-listview\\component",
+    "\\src\\assets"
+  ],
+  "SelectedNode": "\\src\\app\\condensers\\create-report\\component\\report-preview\\report-preview.component.ts",
+  "PreviewInSolutionExplorer": false
+}

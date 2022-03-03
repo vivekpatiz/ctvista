@@ -1,0 +1,11 @@
+<div class="stepper-input">
+    <button [disabled]="!checked || (value === min)" class="toggle-less" (click)="toggleLess();emitInputVal(renderedValue)">
+      <i class="pi pi-minus"></i>
+    </button>
+    <span class="stepper-input-field" name="range-value" aria-atomic="true" aria-live="polite" aria-relevant="all">
+        {{renderedValue}}
+    </span>
+    <button [disabled]="!checked || (value === max)" class="toggle-more" (click)="toggleMore();emitInputVal(renderedValue)">
+        <i class="pi pi-plus"></i>
+    </button>
+</div>

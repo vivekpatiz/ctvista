@@ -1,0 +1,179 @@
+@media print {
+    .page {
+        page-break-after: always;
+    }
+    canvas, mat-card-content {
+    break-inside: avoid;
+  }
+    body{
+        width: 21cm;
+        height: 29.7cm;
+        margin: 20mm 0mm 20mm 0mm; 
+        /* change the margins as you want them to be. */
+   } 
+}
+
+@page {
+     size: 21cm 29.7cm;
+    margin: 20mm 0mm 20mm 0mm;
+      canvas, mat-card-content {
+    break-inside: avoid;
+  }
+}
+
+
+@page:last-of-type  {
+    margin-bottom: -2px;
+}
+.page:last-of-type { 
+                        margin-bottom: -2px;
+}
+.Preview-report-view{
+    background: #f3f5f6;
+}
+.Preview-report-pdf{
+  background: #FFFFFF;
+}
+.card{
+  padding:1em;
+  margin: 1em;
+}
+.spaceInbtw{
+  display: flex;
+  justify-content: space-between;
+  
+}
+.card-contained{
+  text-align: justify;
+  font-family: 'Segoe UI';
+  font-size:17px;
+  letter-spacing: 0px;
+  color: #333333;
+  margin-left: 1.8em;
+  margin-right: 1.9em;
+  // margin-top: 1.5em;
+  overflow: hidden;
+  }
+.non-fixed{
+  overflow: scroll;
+  height: 580px;
+  margin-left: 2%;
+}
+.pdf-fixed{
+  width: auto;
+}
+.non-fixed .card-contained img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.card-header{
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  letter-spacing: 0px;
+  color: #333333;
+  opacity: 1;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.position {
+    z-index: 1;
+    position: relative;
+  }
+  .select-icon{
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+  .font-header {
+    font-size: 14px;
+    margin: 2.3em;
+    text-decoration: none;
+    color: #333;
+  }
+  .page-title{
+    margin-left: .8em;
+    margin-top: 0.5em;
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: -.5em;
+    }
+    mat-spinner{
+      z-index: 100000;
+      left: 50%;
+    }
+  :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+      stroke: #3fb53f;
+  }
+    .btnlink {
+        color:#5cb85c;
+        margin: 0.5em;
+        cursor: pointer;
+      }
+      .btnprimary {
+        width: 135px;
+        height: 40px;
+        background: #5cb85c;
+        color: white;
+        margin: 0.5em;
+        &:not(.mat-button-disabled):hover {
+          background: #1b8f1b;
+          color: white;
+        }
+      }
+      .btnOutline {
+        width: 118px;
+        height: 40px;
+        color:#5cb85c;
+        margin: 0.5em;
+      }
+      .button-section{
+        margin-left: 2%;
+        width: 95%;
+      }
+      .widjetCart{
+        opacity: 1;
+     //   margin: 1cm auto;
+       width: 95%;
+
+       // min-height: 29.7cm;
+       
+        padding-left: 1em;
+        padding-right: 1em;
+        background-color: #FFFFFF;
+      /*  box-shadow: 0px 3px 6px #00000029;
+        margin-bottom: 10px;
+        padding-bottom: 10px;*/
+      }
+      .preview-header{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 1.9%;
+        width: 97%;
+      }
+      .single-logo{
+        justify-content: flex-end;
+      }
+      .logo{
+        width: 100px;
+        height: 52px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        
+      }
+      .logoright{
+        width: 100px;
+        height: 52px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left:auto;
+        margin-right:10px;
+      }
+      @media print{
+        /* use your css selector */    
+        .pavoid {
+          page-break-inside: avoid;
+        }
+    }
+     

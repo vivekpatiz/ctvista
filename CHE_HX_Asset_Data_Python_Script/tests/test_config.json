@@ -1,0 +1,11 @@
+{
+  "pathOfxlsx" : "C:\\Users\\akanksha.shrivastava\\Documents\\pythonscriptfile.xlsx",
+  "destofxlsx" : "C:\\Users\\akanksha.shrivastava\\Documents\\dest_folder6\\pythonscriptfile.xlsx",
+  "dataBaseName": "ctvista_dhrd_dev",
+  "dataBaseHost" : "127.0.0.1",
+  "dataBaseUser" : "root",
+  "dataBasePassword" : "root",
+  "logFileName" : "application.log",
+  "sheet2Name" : "Sheet2"
+
+}

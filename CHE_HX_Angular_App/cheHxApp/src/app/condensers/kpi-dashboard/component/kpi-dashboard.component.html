@@ -1,0 +1,228 @@
+<div class="dashboard-header">
+  <section class="button-section">
+    <h2 class="dashboard-header">Condenser Dashboard</h2>
+  </section>
+  <section class="dashboard-body">
+    <mat-card>
+      <div class="p-fluid p-formgrid p-grid menu-main">
+        <div class="p-field p-col">
+          <label for="condensername" class="label-class">Condenser Name</label>
+          <p-dropdown disableOptionCentering dataKey="value" [options]="condenserParsedList"
+            [(ngModel)]="selectedCondenser" [filter]="true" [showClear]="false" placeholder="Select a Condenser"
+            (onChange)="cdsDrpDwnChange($event)">
+            <ng-template let-citem pTemplate="selectedItem">
+              <span style="vertical-align: middle; margin-left: 0.5em; font: size 14px">{{
+                citem.label
+                }}</span>
+            </ng-template>
+            <ng-template let-condenserS pTemplate="item">
+              <div class="ui-helper-clearfix" style="position: relative; height: 25px">
+                <div style="font-size: 14px; margin-top: 4px">
+                  {{ condenserS.label }}
+                </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <a style="text-decoration: underline; color: #0645ad; font-size: 12px;cursor: pointer"
+            (click)="viewCondenser()" routerLinkActive="router-link-active">
+
+            View Condenser Configuration
+          </a>
+        </div>
+        <div class="p-field p-col">
+          <label for="condensername" class="label-class">Date Range</label> <br />
+          <input type="text" ngxDaterangepickerMd [(ngModel)]="initDate" class="inp-icon inp-date-range"
+            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [showCancel]="true" [ranges]="ranges"
+            placeholder="Choose date" (change)="changeDate($event)" pInputText />
+        </div>
+        <div class="p-field p-col "
+          [ngClass]="{ 'custom-slider-disabled': disableLoader , 'custom-slider':!disableLoader }">
+          <label for="condensername" class="label-class">Load Range</label>
+          <div style="display: flex; flex-direction: row-reverse">
+            <span *ngIf="!disableLoader" class="lagent">{{options.ceil}}</span>
+            <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
+            <span *ngIf="!disableLoader" class="lagent">{{options.floor}}</span>
+          </div>
+
+        </div>
+        <div class="p-field p-col">
+          <button mat-raised-button [disabled]="disableLoader" matTooltip="click to change the load range of chart"
+            (click)="getChartByLoad()"
+            style="margin-top: 3em; margin-left:10%; font-size:12 px; color: #337AB7">Apply</button>
+        </div>
+        <div class="p-field p-col" style="display: flex; flex-direction: row-reverse">
+          <button mat-raised-button [disabled]="disableLoader" (click)="createReport()" class="btn">Create
+            Report</button>
+          <em style="position: absolute; top: 7.3em; right: 12em; color: #ccc" class="fa info-icon"
+            aria-hidden="true"></em>
+          <p style="
+              position: absolute;
+              top: 7.5em;
+              color: #666666;
+              font-size: 13px;
+              font-weight: 400;
+            ">Check KPI Overview,<br/>
+             KPI & Custom Charts<br/>
+            before creating a report
+          </p>
+        </div>
+      </div>
+      <mat-tab-group animationDuration="0ms" (selectedTabChange)="onTabChanged($event)">
+        <mat-tab label="KPI Overview">
+          <div id="download">
+            <img alt="canv" #canvas>
+            <a #downloadLink></a>
+          </div>
+          <div class="p-col troubleShootingImg" *ngIf="!showSpinner && chartArray.length > 0">
+            <div>
+            <a class="margin" (click)="downloadImage(0.7)" title="click to Save KPI Overview in low resolution"><mat-icon>save_alt</mat-icon>
+            Low resolution</a>
+            <a class="margin" (click)="downloadImage(1)" title="click to Save KPI Overview in high resolution"><mat-icon>save_alt</mat-icon>
+              High resolution</a>
+            </div>
+            <div>
+              <em
+                class="fa troubleShootingicon"></em>
+            <a class="trouble-shooting-guide" (click)="viewTroubleShootingGuide()">
+              Condenser Troubleshooting Guide</a>
+            </div>
+          </div>
+          <div #screen style="padding-bottom: 5px;">
+          <app-kpioverview *ngIf="!showSpinner && chartArray.length > 0" [chartArray]="chartArray" [fromDateToBeShownOnCards]="fromDateToBeShownOnCards" [toDateToBeShownOnCards]="toDateToBeShownOnCards"
+          [recentUserAccId]="recentUserAccId" [serviceURl]="serviceURl"></app-kpioverview>
+        </div>
+          <div *ngIf="!showSpinner && chartArray.length == 0" class="norecrds-div">
+            <div class="norecrds-img"></div>
+            <br />
+            <div style="color: #666666; font-size: 18px; align-self: center">
+              No Data Available
+            </div>
+            <br />
+            <br />
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              There is no available data to show.
+            </div>
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              Please select a different date range/ load range & try again
+            </div>
+          </div>
+          <mat-spinner style="color: #337ab7" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60"
+            title="Loading charts....."></mat-spinner>
+        </mat-tab>
+        <mat-tab label="KPI Charts">
+          <div style="position: relative">
+            <div *ngIf="!showSpinner">
+              <ng-container *ngFor="let item of chartArray; let i = index">
+                <div *ngIf="!showSpinner" style="
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+                          position: absolute;
+                        ">
+                  <span style="color: #333333; font-size: 14px; font-weight: 600">{{ item.chartLabel }}</span>&nbsp;
+                </div>
+                <br />
+                <dhr-chart [chartData]="item.chartdata" [xAxisLabel]="item.xlabel" [yAxislabel]="item.yLabel"
+                  [chartLabel]="item.chartLabel" [chartTitle]="item.chartLabel" [showyAxisLabel]="true" [showToolbox]="true"
+                  [isMultiSeries]="false" [showToolTip]="true" [showxAxisLabel]="true">
+                </dhr-chart>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="
+                    !showSpinner &&
+                    chartArray.length == 0" class="norecrds-div">
+            <div class="norecrds-img"></div>
+            <br />
+            <div style="color: #666666; font-size: 18px; align-self: center">
+              No Data Available
+            </div>
+            <br />
+            <br />
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              There is no available data to show.
+            </div>
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              Please select a different date range/ load range & try again
+            </div>
+          </div>
+          <mat-spinner style="color: #337ab7" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60"
+            title="Loading charts....."></mat-spinner>
+        </mat-tab>
+        <mat-tab label="Custom Charts">
+          <div class="p-fluid p-formgrid p-grid menu-main">
+            <div class="p-field p-col">
+              <mat-form-field appearance="none">
+                <mat-select placeholder="Select charts" disableOptionCentering [formControl]="chartControl" [multiple]="true" >
+                  <mat-option *ngFor="let chart of customCharts" [value]="chart.id"
+                    (onSelectionChange)="customChartSelect($event.source.value ,$event.source.selected, chart )">
+                    {{chart.displayName}}
+                  </mat-option>
+                </mat-select>
+                <i class="pi pi-chevron-down" style="
+                          margin-right: 0.875em;
+                          margin-top: -5px;
+                          color: #7792b2;
+                        "></i>
+              </mat-form-field>
+              <a href="{{url}}" target="_blank" style="text-decoration: underline; color: #0645ad; font-size: 14px;cursor: pointer; padding-left: 4em;"
+                     (click)="viewAdvancedCharts()" routerLinkActive="router-link-active">
+                     
+                       Advanced Charts
+                    </a>
+              <hr />
+              <br />
+              <ng-container *ngFor="let item of CustomchartArray; let i = index">
+      
+                <div [id]="item.chartLabel" style="position: relative">
+                  <div *ngIf="!showSpinner">
+                    <div *ngIf="!showSpinner" style="
+                              display: flex;
+                              flex-direction: row;
+                              align-items: center;
+                              position: absolute;
+                            ">
+                      <span style="
+                          color: #333333;
+                          font-size: 14px;
+                          font-weight: 600;
+                        ">{{ item.chartLabel }}</span>&nbsp;
+                    </div>
+                    <br />
+                    <dhr-chart [chartData]="item.chartdata" [xAxisLabel]="item.xlabel" [yAxislabel]="item.yLabel"
+                      [chartLabel]="item.chartLabel" [chartTitle]="item.chartLabel" [isMultiSeries]="false"
+                      [showyAxisLabel]="true" [showToolbox]="true" [showToolTip]="true" [showxAxisLabel]="true">
+                    </dhr-chart>
+                  </div>
+                </div>
+              </ng-container>
+              <div *ngIf="
+                        !showSpinner &&
+                        CustomchartArray.length == 0 
+                      " class="norecrds-div">
+                <div class="norecrds-img"></div>
+                <br />
+                <div style="color: #666666; font-size: 18px; align-self: center">
+                  Select Charts to view
+                </div>
+                <br />
+                <br />
+                <div style="color: #808080; font-size: 14px; align-self: center">
+                  You have not selected any chart yet
+                </div>
+                <div style="color: #808080; font-size: 14px; align-self: center">
+                  Please select the Charts from the dropdown to add to the custom Charts
+                </div>
+              </div>
+              <mat-spinner style="color: #337ab7" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60"
+                title="Loading charts....."></mat-spinner>
+              <div style="font-size: 23px; text-align: center; color: #ccc" *ngIf="selectedCharts.length == 0">
+                No Charts to display. Select charts from the dropdown.
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </section>
+</div>

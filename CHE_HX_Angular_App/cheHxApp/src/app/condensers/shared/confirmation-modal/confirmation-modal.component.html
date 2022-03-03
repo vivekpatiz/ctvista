@@ -1,0 +1,13 @@
+<section class="modal-container">
+    <div class="modal-main-header">
+        <div class="modal-header" style="background: #dbe1e5"><h2 style="padding: .575em;">Leave without Saving</h2><button (click)="onNoResponse()" class="cross-btn"><span style="font-size: 18px;" aria-hidden="true">&#10005;</span></button></div>
+    </div>
+    <mat-dialog-content>
+      <p style="padding-left: .8em; font-size: 13px;">Are you sure you want to leave without saving the Condenser Configuration?</p>
+      <p style="padding-left: .8em; font-size: 13px;">Changes you made will be lost if you leave without saving.</p>
+    </mat-dialog-content>
+    <mat-dialog-actions fxLayoutAlign="center none">
+      <button class="leavepagebtn" mat-raised-button (click)="onNoResponse()">Stay on Page</button>
+      <button class="staypagebtn" mat-raised-button (click)="onYesResponse()">Leave Page</button>
+    </mat-dialog-actions>
+</section>

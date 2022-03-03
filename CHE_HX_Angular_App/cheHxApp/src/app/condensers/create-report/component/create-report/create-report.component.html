@@ -1,0 +1,137 @@
+<div class="create-report">
+  <div class="button-section">
+    <div style="display: flex; justify-content: space-between;">
+      <div *ngIf="(reportService.report.id === undefined || reportService.report.id === 'id')" class = "page-title">
+        <i (click)="openModel('')" class="fa fa-long-arrow-left" style="cursor: pointer;" aria-hidden="true">
+        </i>&nbsp;Create Report</div>
+        <div *ngIf="(reportService.report.id !== undefined && reportService.report.id !== 'id')" class = "page-title">
+          <i (click)="previewReport()" class="fa fa-long-arrow-left" style="cursor: pointer;" aria-hidden="true">
+          </i>&nbsp;{{reportService.report.name}}</div>
+        <div>
+      <a (click)="openModel('Discard')" *ngIf="(reportService.report.id === undefined || reportService.report.id === 'id')" class="btnlink">Discard</a>
+      <a (click)="openModel('Delete')" class="btnlink" *ngIf="(reportService.report.id !== undefined && reportService.report.id !== 'id')">Delete</a>
+      <button type="button" (click)="previewReport()" mat-raised-button class="btnOutline">
+        <img  alt="select-icon" class="select-icon" [src]="envURl.visibility"/>
+       preview
+       </button>
+    <button type="button" (click)="saveReport()" mat-raised-button class="btnprimary">
+     Save
+    </button>
+    </div>
+  </div>
+  <!-- <div style="display: flex;justify-content: space-between;" *ngIf="!viewMode">
+    <div class = "page-title">
+      <i (click)="navButton()" class="fa fa-long-arrow-left" style="cursor: pointer;" aria-hidden="true">
+      </i>&nbsp;Create Report</div>
+      <div>
+    <a class="btnlink" *ngIf="reportSaved">Discard</a>
+    <a class="btnlink" *ngIf="!reportSaved">Delete</a>
+    <button mat-raised-button class="btnOutline">
+     Edit
+     </button>
+  <button mat-raised-button class="btnprimary">
+   Download
+  </button>
+  </div>
+</div> -->
+</div>
+  <section class="table-section">
+    <div class="ReportNameWraper">
+      <form [formGroup]="myGroup" class="formWraper">
+        <div class="detailsLable">
+          <mat-label> Report Name</mat-label>
+          <input  class="fieldWirth" formControlName="reportName"  placeholder="AES12879_05/19/20 - 08/19/2020" >
+        </div>      
+        <div class="detailsLable">
+          <mat-label>Condenser Name</mat-label>
+          <mat-label> <strong> {{condensername}}</strong> </mat-label>
+        </div>
+        <div class="detailsLable">
+          <mat-label> Date Range</mat-label>
+          <mat-label> <strong>{{fromeDte  | date:'shortDate'}} to {{toDate  | date:'shortDate'}}</strong> </mat-label> 
+        </div>
+        <div class="detailsLable">
+          <mat-label> Load Range</mat-label>
+          <mat-label> <strong> {{value}}% to {{highValue}}%</strong> </mat-label> 
+        </div>
+        </form>
+    </div>
+    <div class="menuWraper">
+      <form>
+        <div class="menuIteam">
+        <div class="add-editor-btn" mat-stroked-button type="button" (click)="reportService.addItem('editor','Editor', {editorData:''})">
+          <mat-icon class="select-icon">wrap_text</mat-icon>
+          <span>Add Content</span>
+          </div>
+        <div>
+       <mat-form-field>  
+          <mat-label> <img alt="select-icon" class="select-icon" [src]="envURl.kpiChartsIcon"/>
+            Add KPI chart
+          </mat-label>
+          <mat-select #allSelected [formControl]="kpiCharts" multiple disableOptionCentering>
+            <mat-option  (click)="toggleAllSelection()" [value]="0">Select All</mat-option>
+            <mat-option *ngFor="let kpiChart of kpiChartList"  [value]="kpiChart.displayName" (onSelectionChange)="somethingChanged($event.source.value,$event.source.selected)" >{{kpiChart.displayName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>  
+          <mat-label><img alt="select-icon" class="select-icon" [src]="envURl.customchartsicon"/>Add Custom chart</mat-label>
+          <mat-select #customSelected multiple disableOptionCentering [value] = "customChartSelection">
+            <mat-option *ngFor="let kpiChart of customChartList" [value]="kpiChart.displayName"
+            (onSelectionChange)="customChartSelect($event.source.selected, kpiChart)">{{kpiChart.displayName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+        <div class="example-margin">
+          <mat-checkbox [checked]="troubleshootingCheckBox" (change)="setTroubleshooting($event.checked)">Troubleshooting Guide</mat-checkbox>
+        </div>
+
+        <div class="example-margin">
+          <mat-checkbox [checked]="enableDrag" (change)="enableEditorDrag()">Enable Editor Drag</mat-checkbox>
+        </div>
+      </div>
+    </form>    
+    </div>
+    <div *ngIf="!showSpinner" id="contentToConvertPDF" cdkDropList class="non-fixed" (cdkDropListDropped)="drop($event)">
+      <div class="widjetCart" *ngFor="let item of layout">
+        <div [id]="item.id" cdkDrag [cdkDragDisabled] = "item.layoutType === 'editor' && !enableDrag">
+       <mat-card  class="card">
+          <mat-card-header>
+            <mat-card-title>
+                <mat-toolbar class="spaceInbtw card-header">
+                  <div>
+                   {{item.headerTitle === 'Disclaimer'?'Disclaimer':''}}
+                </div>
+                <div *ngIf="item.layoutType !== 'executive'">
+                  <button mat-icon-button (click)="deleteItem(item)"
+                    aria-label=" delete-button">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+                </mat-toolbar>
+            </mat-card-title>
+    
+          </mat-card-header>
+          <mat-card-content  *ngIf="item.layoutType === 'executive'">
+            <div class="card-contained" [innerHTML]="item.data.executiveSummary"></div>
+           </mat-card-content>
+          <mat-card-content  *ngIf="item.layoutType === 'troubleshooting'">
+           <div class="card-contained" [innerHTML]="item.data.htmlTroubleshooting + item.data.htmlTroubleshooting1"></div>
+          </mat-card-content>
+          <mat-card-content *ngIf="item.layoutType === 'chart'">
+              <dhr-chart *ngIf="item.data[0].xlabel" [chartData]="item.data[0].chartdata" [xAxisLabel]="item.data[0].xlabel"
+              [yAxislabel]="item.data[0].yLabel" [chartLabel]="item.data[0].chartLabel" [chartTitle]="item.data[0].chartLabel"
+              [showyAxisLabel]="true" [showToolTip]="true" [showxAxisLabel]="true">
+            </dhr-chart>
+          </mat-card-content>
+          <mat-card-content *ngIf="item.layoutType === 'editor'">
+            <angular-editor  [(ngModel)]="item.data.editorData"  [config]="config" ></angular-editor>
+        </mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+    </div>
+    <mat-spinner class="spiner" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate" [diameter]="60" title="Loading charts....."></mat-spinner>
+  </section>
+</div>
+ 

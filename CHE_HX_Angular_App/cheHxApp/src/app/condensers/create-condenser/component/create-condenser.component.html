@@ -1,0 +1,1705 @@
+<mat-card style="margin: 0.875em;">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="p-fluid p-formgrid p-grid menu-main">
+      <div class="p-field p-col">
+        <label for="condensername" class="label-class"
+          >Condenser Name<span style="color: red;">*</span></label
+        >
+        <input
+          id="condensername"
+          formControlName="condenserName"
+          type="text"
+          [ngClass]="{ 'is-invalid': submitted && f.condenserName.errors }"
+          pInputText
+        />
+        <div
+          *ngIf="submitted && f.condenserName.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.condenserName.errors.required">
+            Please type condenser name
+          </div>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <label for="facility" class="label-class"
+          >Facility<span style="color: red;">*</span></label
+        >
+        <p-dropdown
+          [optionLabel]="label"
+          placeholder="Select a facility"
+          [options]="listFacility"
+          formControlName="facilityName"
+          resetFilterOnHide="true"
+          [filter]="true"
+          [ngClass]="{ 'is-invalid': submitted && f.facilityName.errors }"
+          (onChange)="onFacilitySelected($event)"
+          [readonly] = "isFacilityDisabled"
+        ></p-dropdown>
+        <div *ngIf="submitted && f.facilityName.errors" class="invalid-feedback">
+          <div *ngIf="f.facilityName.errors.required">Please select facility</div>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <label for="system" class="label-class"
+          >System<span style="color: red;">*</span></label
+        >
+        <p-dropdown *ngIf="!disableSystem"
+          [optionLabel]="label"
+          placeholder="Select a system"
+          [options]="listSystem"
+          formControlName="systemName" 
+          [ngClass]="{ 'is-invalid': submitted && f.systemName.errors }"
+          [readonly] = "isSystemDisabled"
+        ></p-dropdown>
+        <p-dropdown *ngIf="disableSystem" [disabled]="disableSystem" 
+          [optionLabel]="label"
+          placeholder="No data available"
+          [options]="listSystem"
+          formControlName="systemName" 
+          [ngClass]="{ 'is-invalid': submitted && f.systemName.errors }"
+        ></p-dropdown>
+        <div *ngIf="submitted && f.systemName.errors" class="invalid-feedback">
+          <div *ngIf="f.systemName.errors.required">Please select system</div>
+        </div>
+      </div>
+      <div
+        class="p-field p-col"
+        style="display: flex; flex-direction: row-reverse;"
+      >
+        <button mat-raised-button class="btn" (click)="onSave($event)">
+          Save
+        </button>
+      </div>
+    </div>
+    <mat-tab-group [@.disabled]="true">
+      <mat-tab label="Step 1: Unit/Block Design">
+        <div class="p-col-6">
+          <i style="padding-top: 7px; top: 7.3em; right: 13em; color: #ccc" class="fa info-icon"
+            aria-hidden="true"></i>
+          <span class="helper-text">
+            You need to fill all the mandatory fields(<span style="color: red;"
+              >*</span
+            >) to complete calculations for generating the Dashboard for this Condenser.<br />
+            Partially filled information will be saved as an incomplete
+            configuration
+          </span>
+        </div>
+        <br />
+        <div class="row" formGroupName="unitData">
+          <div class="column" style="padding-right: 2rem;">
+            <h3 style="color:#666666;font-weight: 700;">Unit/Block Information</h3>
+            <div class="p-field p-grid">
+              <label for="planttype" class="p-col" style="color: #666666;"
+                >Unit/Block Type<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <p-dropdown
+                  [optionLabel]="label"
+                  placeholder="Select Unit/Block type"
+                  [options]="listPlantType"
+                  formControlName="plant_type"
+                  [showClear]="true"
+                  (onChange)="refreshFormula($event,'plant_type')"
+                >
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="plantfuelsource" class="p-col" style="color: #666666;"
+                >Unit/Block Fuel Source<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <p-dropdown
+                  [optionLabel]="label"
+                  placeholder="Select Unit/Block source"
+                  [options]="listPlantSource"
+                  formControlName="plant_fuel_source"
+                  [showClear]="true"
+                  (onChange)="refreshFormula($event,'plant_fuel_source')"
+
+                >
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="plantmaxload" class="p-col" style="color: #666666;"
+                >Unit/Block Max Load<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="plantmaxload"
+                  formControlName="plant_max_load"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;MWhrs</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="plantcapacityfactor"
+                class="p-col"
+                style="color: #666666;"
+                >Unit/Block Capacity Factor<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="plantcapacityfactor"
+                  formControlName="plant_capacity_factor"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;%</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="extractionsteam" class="p-col" style="color: #666666;"
+                >Extraction Steam<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="extractionsteam"
+                  formControlName="extraction_steam"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;%</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="typicalsaleprice"
+                class="p-col"
+                style="color: #666666;"
+                >Typical $$/MWhr Sale Price<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask 
+                  [options]='maskCurr'
+                  id="typicalsaleprice"
+                  formControlName="typical_mwhr_sale_price"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;$/MWhrs</span>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <h3 style="color:#666666;font-weight: 700;">
+              Unit/Block $$$ & Efficiency Information
+            </h3>
+            <div class="p-field p-grid">
+              <label for="typicalheatrate" class="p-col" style="color: #666666;"
+                >Typical Heat Rate<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input 
+                  currencyMask
+                  id="typicalheatrate"
+                  [options]='maskThreeDecimal'
+                  formControlName="typical_heat_rate"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;btu/kWhr</span>
+              </div>
+            </div>
+            <div class="p-field p-grid" style="display: none;">
+              <label
+                for="typicalheatratepenalty"
+                class="p-col"
+                style="color: #666666;"
+                >Typical Heat Rate Penalty
+                <span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input style="background: #f3f5f6;"
+                  id="typicalheatratepenalty"
+                  formControlName="typical_heat_rate_penalty"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText disabled
+                /><span class="lb-unit">&nbsp;&nbsp;%</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="avgfuelcostperunit"
+                class="p-col"
+                style="color: #666666;"
+                >Average Fuel Costs per unit<span style="color: red;"
+                  >*</span
+                ></label
+              >
+              <div class="p-col">
+                <input 
+                  currencyMask
+                  [options]='maskCurr'
+                  id="avgfuelcostperunit"
+                  formControlName="average_fuel_costs_per_unit"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;US$</span>
+              </div>
+            </div>
+            <div class="p-field p-grid" style="display: none;">
+              <label
+                for="avgfuelcostspermmbtus"
+                class="p-col"
+                style="color: #666666;"
+                >Average Fuel Costs per MMbtus<span style="color: red;"
+                  >*</span
+                ></label
+              >
+              <div class="p-col">
+                <input style="background: #f3f5f6;"
+                  currencyMask
+                  [options]='maskCurr'
+                  id="avgfuelcostspermmbtus"
+                  formControlName="average_fuel_costs_per_mmbtus"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText disabled
+                /><span class="lb-unit">&nbsp;&nbsp;US$</span>
+              </div>
+            </div>
+            <div class="p-field p-grid" style="display: none;">
+              <label for="emissions" class="p-col" style="color: #666666;"
+                >CO<sub style="margin-top: 0.8em;">2</sub>&nbsp;Emissions
+                Expected<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input style="background: #f3f5f6;"
+                  id="emissions"
+                  formControlName="expected_co2_emmissions"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText disabled
+                /><span class="lb-unit">&nbsp;&nbsp;lb/10^6btus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Step 2: Condenser Design">
+        <div class="p-col-6">
+          <i style="padding-top: 7px; top: 7.3em; right: 13em; color: #ccc" class="fa info-icon"
+            aria-hidden="true"></i>
+          <span class="helper-text">
+            You need to fill all the mandatory fields(<span style="color: red;"
+              >*</span
+            >) to complete calculations for generating the Dashboard for this Condenser.<br />
+            Partially filled information will be saved as an incomplete
+            configuration
+          </span>
+        </div>
+        <br />
+        <div class="row" formGroupName="unitData">
+          <div class="column">
+            <h3 style="color:#666666;font-weight: 700;">Operating Design</h3>
+            <div class="p-field p-grid">
+              <label for="designduty" class="p-col" style="color: #666666;"
+                >Design Duty</label
+              >
+              <div class="p-col">
+                <input
+                currencyMask
+                [options]='maskTwoDecimal'
+                  id="designduty"
+                  formControlName="design_duty"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;mmBtu/hr</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="designsteamflw" class="p-col" style="color: #666666;"
+                >Design Steam Flow</label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimal'
+                  id="designsteamflw"
+                  formControlName="design_steam_flow"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;lbs/hr</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="dsgnwtrflw" class="p-col" style="color: #666666;"
+                >Design Water Flow<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimal'
+                  id="dsgnwtrflw"
+                  formControlName="design_water_flow"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;gpm</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="dsgninltclingwtr"
+                class="p-col"
+                style="color: #666666;"
+                >Design Inlet Cooling Water Temp<span style="color: red;"
+                  >*</span
+                ></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskOneDecimalDot'
+                  id="dsgninltclingwtr"
+                  formControlName="design_cw_temp_in"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;F</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="noofprssrsmpl" class="p-col" style="color: #666666;"
+                >Number of Pressures<span style="color: red;"
+                  >*</span
+                ></label
+              >
+              <div class="p-col">
+                <input
+                  id="noofprssrsmpl"
+                  formControlName="number_of_pressure_sample_points"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="dsgncwpressrdrp" class="p-col" style="color: #666666;"
+                >Design CW pressure Drop<span style="color: red;"
+                  >*</span
+                ></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimalDot'
+                  id="dsgncwpressrdrp"
+                  formControlName="design_cw_pressure_drop"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;psi</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="designcf" class="p-col" style="color: #666666;"
+                >Design CF<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="designcf"
+                  formControlName="design_cf"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;%</span>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <h3 style="color:#666666;font-weight: 700;">Engineering Design</h3>
+            <div class="p-field p-grid">
+              <label for="noofshells" class="p-col" style="color: #666666;"
+                >No of shells</label
+              >
+              <div class="p-col">
+                <input
+                  id="noofshells"
+                  formControlName="no_of_shells"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                />
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="tubemetallurgy" class="p-col" style="color: #666666;"
+                >Tube Metallurgy <span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <p-dropdown
+                  [optionLabel]="label"
+                  placeholder="Select tube metallurgy"
+                  [options]="listTubeMetallurgy"
+                  formControlName="tube_metallurgy"
+                  [showClear]="true"
+                >
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="noofpasses" class="p-col" style="color: #666666;"
+                >No. of Passes<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="noofpasses"
+                  formControlName="no_of_passes"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                />
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="nooftubestotal" class="p-col" style="color: #666666;"
+                >No. of Tubes Total<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimal'
+                  id="nooftubestotal"
+                  formControlName="no_of_total_tubes"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="noofunplgdtubes" class="p-col" style="color: #666666;"
+                >No. of Unplugged Tubes</label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimal'
+                  id="noofunplgdtubes"
+                  formControlName="no_of_unplugged_tubes"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                />
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="tubeod" class="p-col" style="color: #666666;"
+                >Tube OD<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimalDot'
+                  id="tubeod"
+                  formControlName="tube_od"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;inches</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label for="tubewallgauge" class="p-col" style="color: #666666;"
+                >Tube Wall Gauge<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  id="tubewallgauge"
+                  formControlName="tube_wall_gauge"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;BWG</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="tubeeffectvelngth"
+                class="p-col"
+                style="color: #666666;"
+                >Tube Effective length<span style="color: red;">*</span></label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskTwoDecimalDot'
+                  id="tubeeffectvelngth"
+                  formControlName="tube_effective_length"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;ft</span>
+              </div>
+            </div>
+            <div class="p-field p-grid">
+              <label
+                for="cndsreffetivearea"
+                class="p-col"
+                style="color: #666666;"
+                >Condenser Effective Area</label
+              >
+              <div class="p-col">
+                <input
+                  currencyMask
+                  [options]='maskThreeDecimal'
+                  id="cndsreffetivearea"
+                  formControlName="condenser_effective_area"
+                  type="text"
+                  size="5"
+                  (keypress)="numberOnlyFltr($event)"
+                  pInputText
+                /><span class="lb-unit">&nbsp;&nbsp;sqft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Step 3: Historian Data">
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step>
+              <ng-template matStepLabel>Step 1: Select Parameters</ng-template>
+              <div class="p-col-6" style="margin-left: -1.5rem;">
+                <i style="padding-top: 7px; top: 7.3em; right: 13em; color: #ccc" class="fa info-icon"
+                aria-hidden="true"></i>
+              <span class="helper-text" style="margin-top: 10px;">
+                All fields under the lables mark with asterix(<span style="color: red;">*</span>) need to be filled before you can download
+                the data Template
+              </span>
+              </div>
+              <div class="p-col-6" style="padding-bottom: 16px;">
+                <span style="font: normal normal bold 14px/29px Segoe UI;color: #666666;opacity: 1;">
+                  Please select input Parameters & number of values applicable
+                  the data Template
+                </span>
+              </div>
+              <mat-card>
+              <div class="row">
+                <div class="column">
+                  <div class="p-field p-grid">
+                    <div class="p-col" class="col-clss">
+                      <mat-checkbox class="example-margin p-col" [checked]="true" disabled>Gross Load<span class="cb-mndtry-style">*</span></mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="true" disabled>Condenser Back Pressure<span class="cb-mndtry-style">*</span></mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser Back Pressure'"  [checked]="true" [step]="1" [min]="1" [max]="8" [initialValue]="1"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="true" disabled>Boiler Steam Flow<span class="cb-mndtry-style">*</span></mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Boiler Steam Flow'"  [checked]="true" [step]="1" [min]="1" [max]="12" [initialValue]="1"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="true" disabled>Condenser CW In Temps<span class="cb-mndtry-style">*</span></mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser CW In Temps'"  [checked]="true" [step]="1" [min]="1" [max]="8" [initialValue]="1"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="true" disabled>Condenser CW Out Temps<span class="cb-mndtry-style">*</span></mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser CW Out Temps'"  [checked]="true" [step]="1" [min]="1" [max]="8" [initialValue]="1"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox   [checked]="nl" (change)="checkCheckBoxvalue($event,'Net Load')" class="example-margin">Net Load</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="ghr" (change)="checkCheckBoxvalue($event,'Gross Heat Rate')" class="example-margin">Gross Heat Rate</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="nhr" (change)="checkCheckBoxvalue($event,'Net Heat Rate')" class="example-margin">Net Heat Rate</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="at" (change)="checkCheckBoxvalue($event,'Ambient Temp')" class="example-margin">Ambient Temp</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="hm" (change)="checkCheckBoxvalue($event,'Humidity')" class="example-margin">Humidity</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="bp" (change)="checkCheckBoxvalue($event,'Barometric Pressure')" class="example-margin">Barometric Pressure</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox [checked]="cs" (change)="checkCheckBoxvalue($event,'Condensate Sodium')" class="example-margin">Condensate Sodium</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="ccc" (change)="checkCheckBoxvalue($event,'Condensate Cation Conductivity')" class="example-margin">Condensate Cation Conductivity</mat-checkbox>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <div class="p-col">
+                      <mat-checkbox  [checked]="cd" (change)="checkCheckBoxvalue($event,'Condensate DO')" class="example-margin">Condensate DO</mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="atn" (change)="checkCheckBoxvalue($event,'Attemperation Flow')"  >Attemperation Flow</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Attemperation Flow'"   [checked]="atn" [step]="1" [min]="0" [max]="5" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox class="example-margin p-col" [checked]="cgntf"  (change)="checkCheckBoxvalue($event,'Cogen Steam Flow')"  >Cogen Steam Flow</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Cogen Steam Flow'"  [checked]="cgntf" [step]="1" [min]="0" [max]="2" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox  [checked]="sto" (change)="checkCheckBoxvalue($event,'Steam Turbine Output')" class="example-margin p-col">Steam Turbine Output</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Steam Turbine Output'"  [checked]="sto" [step]="1" [min]="0" [max]="3" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="gto" (change)="checkCheckBoxvalue($event,'Gas Turbine Output')" class="example-margin p-col">Gas Turbine Output</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Gas Turbine Output'"  [checked]="gto" [step]="1" [min]="0" [max]="6" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="lpest" (change)="checkCheckBoxvalue($event,'LP Exhaust Steam Temp')" class="example-margin p-col">LP Exhaust Steam Temp</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'LP Exhaust Steam Temp'"  [checked]="lpest" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="ht" (change)="checkCheckBoxvalue($event,'Hotwell Temp')" class="example-margin p-col">Hotwell Temp</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Hotwell Temp'"  [checked]="ht" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="ccwip" (change)="checkCheckBoxvalue($event,'Condenser CW Inlet Pressure')" class="example-margin p-col">Condenser CW Inlet Pressure</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser CW Inlet Pressure'"  [checked]="ccwip" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="ccwop" (change)="checkCheckBoxvalue($event,'Condenser CW Outlet Pressure')" class="example-margin p-col">Condenser CW Outlet Pressure</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser CW Outlet Pressure'"  [checked]="ccwop" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="ccwdp" (change)="checkCheckBoxvalue($event,'Condenser CW Delta Pressure')" class="example-margin p-col">Condenser CW Delta Pressure</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Condenser CW Delta Pressure'"  [checked]="ccwdp" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="cpa"  (change)="checkCheckBoxvalue($event,'Circ Pump Amps')" class="example-margin p-col">Circ Pump Amps</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Circ Pump Amps'"  [checked]="cpa" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox  [checked]="gff" (change)="checkCheckBoxvalue($event,'Gas Fuel Flow')" class="example-margin p-col">Gas Fuel Flow</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Gas Fuel Flow'"  [checked]="gff" [step]="1" [min]="0" [max]="8" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="dbff" (change)="checkCheckBoxvalue($event,'Duct Burner Fuel Flow')" class="example-margin p-col">Duct Burner Fuel Flow</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Duct Burner Fuel Flow'"  [checked]="dbff" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="cff" (change)="checkCheckBoxvalue($event,'Coal Fuel Flow')" class="example-margin p-col">Coal Fuel Flow</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Coal Fuel Flow'"  [checked]="cff" [step]="1" [min]="0" [max]="8" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                  <div class="p-field p-grid">
+                    <mat-checkbox [checked]="ar" (change)="checkCheckBoxvalue($event,'Air Removal')" class="example-margin p-col">Air Removal</mat-checkbox>
+                    <div class="p-col">
+                      <stepper-input [label]="'Air Removal'"  [checked]="ar" [step]="1" [min]="0" [max]="4" [initialValue]="0"
+                      (noOfSelectedField)="getFieldAndLabel($event)">
+                    </stepper-input>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+            <mat-card style="height: 2rem;box-shadow: 0px -4px 6px #00000029;">
+             <div class="p-field p-grid">
+               <div class="p-col" style="padding-left: 58%;">
+                 <div style="display: inline-block;padding-left: 102px;">
+                   <button class="nxt-btn" mat-button matStepperNext (click)="saveTemplate(formGroup.get('historianMap'))">Save & Proceed</button>
+                 </div>
+               </div>
+             </div>
+            </mat-card>
+          </mat-step>
+          <mat-step label="Step 2: Perform Tag Mapping">
+            <br>
+            <mat-card >
+              <div class="p-field p-grid">
+                <div class="p-col">
+                 <span style="font: normal normal bold 16px/21px Segoe UI;color: #666666;opacity: 1;">
+                    Download Tag Mapping Excel file
+                 </span>  
+                <br>
+                 <span style="font: normal normal normal 14px/19px Segoe UI;color: #666666;opacity: 1;"> 
+                  Please download the following Tag Mapping Excel file and send it to the plant Historian to fill the details.
+                 </span>
+                </div>
+                <div class="p-col">
+                <mat-card style="width: 80%;height: 5rem; cursor: pointer;" (click)="downloadTagExcelTemplate()">
+                  <div class="row">
+                    <div class="col-md-8"  style="display: inline-block;"> 
+                      <div style="display: inline-block;">
+                        <img class="logo" alt="logo" [src]="envURl.excelIcon" />
+                      </div>
+                      <div style="display: inline-block;overflow: hidden;text-overflow: ellipsis;">{{excelName}}</div>
+                    </div>
+                    <div class="col-md-4"  style="display: inline-block;">
+                      <div style="display: inline-block; padding-left: 4.5rem;">
+                        <img  alt="downloade" class="logoDownload" [src]="envURl.downloadIcon"  />
+                       </div> 
+                    </div>
+                  </div>
+                </mat-card>
+              </div>
+              </div>
+              <div class="p-field p-grid" style="padding-top: 2rem;">
+                <div class="p-col">
+                  <span style="font: normal normal bold 16px/21px Segoe UI;color: #666666;opacity: 1;">
+                    Import Filled Tag Mapping Excel File
+                 </span>  
+                <br>
+                <span style="font: normal normal normal 14px/19px Segoe UI;color: #666666;opacity: 1;"> 
+                 Once you have recieved the filled Tag Mapping Excel File,Please import it in the area provided on the right side.
+                 </span>
+                </div>
+                <div class="p-col">
+                <div style="width: 80%;height: 10rem;border: dashed 1px black">
+                    <div *ngIf="showUploadExcel" style="display: inline-block; padding-top: 20px;" >
+                      <img  alt="logo" class="logo" [src]="envURl.excelIcon" />
+                    </div>
+                    <div *ngIf="showUploadExcel" style="display: inline-block;">{{fileName}}</div>
+                    <div style="margin-top: 4rem;padding-left: 15px;">
+                      <div style="display: inline-block;">
+                        <input class="form-control" type="file"  (change)="uploadExcel($event)" #fileInput 
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" /> 
+                      </div>
+                      <div style="display: inline-block;"></div>
+                    </div>
+               </div>
+               <div *ngIf="showUploadExcel" style="padding-left: 15rem; margin-top: 10px;">  
+                <div style="display: inline-block;">
+                  <button class="discard" (click)="clearExcel()" >Discard</button> 
+                </div>
+                <div style="display: inline-block;padding-left: 6px;">
+                  <button  class="importFile" (click)="openExcelModel()">Import File</button> 
+                </div>
+              </div> 
+               <div>
+               </div>
+              </div>
+              </div>
+            </mat-card>
+              <mat-card style="height: 2rem;box-shadow: 0px -4px 6px #00000029;">
+                <div class="p-field p-grid">
+                  <div class="p-col" style="padding-left: 68%;">
+                    <div style="display: inline-block;">
+                      <button class="backbtn" matStepperPrevious >Back</button> 
+                    </div>
+                    <div style="display: inline-block;padding-left: 6px;">
+                      <button matStepperNext [disabled]="!disableReview" [ngClass]="{'disablereviewbtn':disableReview == false, 'reviewbtn': disableReview == true }" >
+                      Review Details
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            </mat-step>
+          <mat-step label="Step 3: Review Details & Download Data Template">
+            <mat-card>
+              <div class="p-field p-grid">
+                  <div class="p-col">
+                    <h3 style="font-weight: 700;">Parameters</h3>
+                  </div>
+                  <div class="p-col">
+                    <h3 style="font-weight: 700;">Unit of Measure</h3>
+                  </div>
+                  <div class="p-col">
+                    <h3 style="font-weight: 700;">Historian Tag Name</h3>
+                  </div>
+                  <div class="p-col">
+                    <h3 style="font-weight: 700;">Historian Tag Descriptor</h3>
+                  </div>
+              </div>
+              <!-- Gross Load -->
+              <ng-container formArrayName="historianMap">
+                <ng-container formArrayName="gross_load">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('gross_load')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Gross Load<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="glUom"
+                      formControlName="uom" 
+                      (onChange)="patchToSimilar($event,'gross_load')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser Back Pressure -->
+              <ng-container formArrayName="historianMap">
+                <ng-container formArrayName="condenser_back_pressure">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_back_pressure')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser Back Pressure #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="cbpUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_back_pressure')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Boiler Steam Flow -->
+              <ng-container formArrayName="historianMap">
+                <ng-container formArrayName="boiler_steam_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('boiler_steam_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Boiler Steam Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="bsfUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'boiler_steam_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser CW In Temps -->
+              <ng-container formArrayName="historianMap">
+                <ng-container formArrayName="condenser_cw_in_temps">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_cw_in_temps')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser CW In Temps #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ccwintUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_cw_in_temps')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser CW Out Temps -->
+              <ng-container formArrayName="historianMap">
+                <ng-container formArrayName="condenser_cw_out_temps">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_cw_out_temps')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser CW Out Temps #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ccwoutUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_cw_out_temps')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Net Load -->
+              <ng-container *ngIf="nl" formArrayName="historianMap">
+                <ng-container formArrayName="net_load">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('net_load')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col drp-dwn">
+                      <label>Net Load<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="nlUom"
+                      formControlName="uom" (onChange)="patchToSimilar($event,'net_load')"  
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Gross Heat Rate -->
+              <ng-container *ngIf="ghr" formArrayName="historianMap">
+                <ng-container formArrayName="gross_heat_rate">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('gross_heat_rate')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Gross Heat Rate<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ghrUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'gross_heat_rate')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Net Heat Rate -->
+              <ng-container *ngIf="nhr" formArrayName="historianMap">
+                <ng-container formArrayName="net_heat_rate">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('net_heat_rate')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Net Heat Rate<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="nhrUom"
+                      formControlName="uom" 
+                      (onChange)="patchToSimilar($event,'net_heat_rate')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Ambient Temp -->
+              <ng-container *ngIf="at" formArrayName="historianMap">
+                <ng-container formArrayName="ambient_temp">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('ambient_temp')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Ambient Temp<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="atempUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'ambient_temp')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Humidity -->
+              <ng-container *ngIf="hm" formArrayName="historianMap">
+                <ng-container formArrayName="humidity">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('humidity')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Humidity<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="hmUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'humidity')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Barometric Pressure -->
+              <ng-container *ngIf="bp" formArrayName="historianMap">
+                <ng-container formArrayName="barometric_pressure">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('barometric_pressure')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Barometric Pressure<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="bpUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'barometric_pressure')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condensate Sodium -->
+              <ng-container *ngIf="cs" formArrayName="historianMap">
+                <ng-container formArrayName="condensate_sodium">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condensate_sodium')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condensate Sodium<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="csUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condensate_sodium')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condensate Cation Conductivity -->
+              <ng-container *ngIf="ccc" formArrayName="historianMap">
+                <ng-container formArrayName="condensate_cation_conductivity">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condensate_cation_conductivity')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condensate Cation Conductivity<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="cccUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condensate_cation_conductivity')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condensate DO -->
+              <ng-container *ngIf="cd" formArrayName="historianMap">
+                <ng-container formArrayName="condensate_do">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condensate_do')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condensate DO<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="cdoUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condensate_do')" 
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+               <!-- Attemperation Flow -->
+               <ng-container  *ngIf="atn" formArrayName="historianMap">
+                <ng-container formArrayName="attemperation_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('attemperation_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Attemperation Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown optionValue="value"
+                      [optionLabel]="label"
+                      [options]="atUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'attemperation_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Cogen Steam Flow -->
+              <ng-container *ngIf="cgntf" formArrayName="historianMap">
+                <ng-container formArrayName="cogen_steam_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('cogen_steam_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Cogen Steam Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown 
+                      [optionLabel]="label"
+                      [options]="csfUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'cogen_steam_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Steam Turbine Output -->
+              <ng-container *ngIf="sto" formArrayName="historianMap">
+                <ng-container formArrayName="steam_turbine_output">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('steam_turbine_output')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Steam Turbine Output #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="stoUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'steam_turbine_output')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Gas Turbine Output -->
+              <ng-container *ngIf="gto" formArrayName="historianMap">
+                <ng-container formArrayName="gas_turbine_output">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('gas_turbine_output')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Gas Turbine Output #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="gtoUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'gas_turbine_output')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- LP Exhaust Steam Temp -->
+              <ng-container *ngIf="lpest" formArrayName="historianMap">
+                <ng-container formArrayName="lp_exhaust_steam_temp">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('lp_exhaust_steam_temp')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>LP Exhaust Steam Temp #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="lpestUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'lp_exhaust_steam_temp')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Hotwell Temp -->
+              <ng-container *ngIf="ht" formArrayName="historianMap">
+                <ng-container formArrayName="hotwell_temp">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('hotwell_temp')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Hotwell Temp #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="htUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'hotwell_temp')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser CW Inlet Pressure -->
+              <ng-container *ngIf="ccwip" formArrayName="historianMap">
+                <ng-container formArrayName="condenser_cw_inlet_pressure">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_cw_inlet_pressure')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser CW Inlet Pressure #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ccwipUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_cw_inlet_pressure')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser CW Outlet Pressure -->
+              <ng-container *ngIf="ccwop" formArrayName="historianMap">
+                <ng-container formArrayName="condenser_cw_outlet_pressure">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_cw_outlet_pressure')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser CW Outlet Pressure #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ccwopUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_cw_outlet_pressure')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Condenser CW Delta Pressure -->
+              <ng-container *ngIf="ccwdp" formArrayName="historianMap">
+                <ng-container formArrayName="condenser_cw_delta_pressure">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('condenser_cw_delta_pressure')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Condenser CW Delta Pressure #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="ccwdpUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'condenser_cw_delta_pressure')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Circ Pump Amps -->
+              <ng-container *ngIf="cpa" formArrayName="historianMap">
+                <ng-container formArrayName="circ_pump_amps">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('circ_pump_amps')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Circ Pump Amps #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="cpaUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'circ_pump_amps')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Gas Fuel Flow -->
+              <ng-container *ngIf="gff" formArrayName="historianMap">
+                <ng-container formArrayName="gas_fuel_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('gas_fuel_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Gas Fuel Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="gffUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'gas_fuel_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Duct Burner Fuel Flow -->
+              <ng-container *ngIf="dbff" formArrayName="historianMap">
+                <ng-container formArrayName="duct_burner_fuel_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('duct_burner_fuel_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Duct Burner Fuel Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="dbffUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'duct_burner_fuel_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Coal Fuel Flow -->
+              <ng-container *ngIf="cff" formArrayName="historianMap">
+                <ng-container formArrayName="coal_fuel_flow">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('coal_fuel_flow')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Coal Fuel Flow #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="cffUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'coal_fuel_flow')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Air Removal -->
+              <ng-container *ngIf="ar" formArrayName="historianMap">
+                <ng-container formArrayName="air_removal">
+                  <div class="p-field p-grid" *ngFor="let ctrl of formGroup.get('historianMap').get('air_removal')['controls']; let i = index" [formGroupName]="i">
+                    <div class="p-col">
+                      <label>Air Removal #{{i +1}}<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="p-col drp-dwn">
+                      <p-dropdown
+                      [optionLabel]="label"
+                      [options]="arUom"
+                      formControlName="uom"
+                      (onChange)="patchToSimilar($event,'air_removal')"
+                    ></p-dropdown>
+                    <div *ngIf="ctrl.controls.uom.errors" class="invalid-feedback">
+                      <div *ngIf="ctrl.controls.uom.errors">Please select unit</div>
+                    </div>
+                    </div>
+                    <div class="p-col">
+                      <input formControlName="tagName" pInputText />
+                    </div>
+                    <div class="p-col"> 
+                      <input formControlName="descriptor" pInputText />
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </mat-card>
+            <mat-card style="height: 3.5rem;box-shadow: 0px -4px 6px #00000029;">
+              <div class="p-field p-grid">
+                <div class="p-col-8">
+                  <i style="padding-top: 7px; top: 7.3em; right: 13em; color: #ccc" class="fa info-icon"
+                    aria-hidden="true"></i>
+                  <span class="helper-text">
+                    All fields under the lables mark with asterix(<span style="color: red;">*</span>) need to be filled before you can download<br />
+                    the data Template
+                  </span>
+                </div>
+                <div class="p-col-4" >
+                  <div style="display: inline-block;">
+                    <button class="backbtn"  matStepperPrevious>Back</button>
+                  </div>
+                  <div style="display: inline-block;padding-left: 3px;">
+                    <button title="Pease save condenser to enable download" disabled="true" class="dwnldtmpl"  (click)="downloadTemplate(formGroup.get('historianMap'))">Download
+                      Excel Template</button>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</mat-card>

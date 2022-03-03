@@ -1,0 +1,30 @@
+<section class="modal-container">
+  <div class="modal-main-header">
+    <div class="modal-header" style="background: #dbe1e5">
+      <h2 style="padding: .575em;">{{data.pageTitle}}</h2>
+      <button (click)="onYesResponse()" class="cross-btn"><span
+          style="font-size: 18px;" aria-hidden="true">&#10005;</span></button>
+    </div>
+  </div>
+  <mat-dialog-content  class="dialog-content">
+    <form #myForm="ngForm" class="form-content">
+        <div class="p-field p-grid">
+        <div class="p-col"><strong>Parameters</strong></div>
+        <div class="p-col"><strong>Minimum Value</strong></div>
+        <div class="p-col"><strong>Maximum Value</strong></div>
+      </div>
+      <div class="p-field p-grid" *ngFor="let details of data.pagetext">
+        <div class="p-col">{{details.display_name}}</div>
+        <div class="p-col"><input type="number" class="min-max-input-values" [(ngModel)]="details.min" 
+            name="{{details.name}}+min" (input)="onValueChange(myForm)"></div>
+        <div class="p-col"><input type="number" class="min-max-input-values" [(ngModel)]="details.max"
+            name="{{details.name}}+max" (input)="onValueChange(myForm)"></div>
+      </div>
+      <div class="p-col"><strong>{{message}}</strong></div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="leavepagebtn" mat-raised-button (click)="onYesResponse()">{{data.leavepagebtn}}</button>
+    <button class="staypagebtn" [disabled]="disableYaxisButton" mat-raised-button (click)="onNoResponse(myForm)">{{data.staypagebtn}}</button>
+  </mat-dialog-actions>
+</section>

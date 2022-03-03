@@ -1,0 +1,1028 @@
+[
+  {
+    "name": "Demo Company",
+    "id": 1207,
+    "level": 1,
+    "owner": 1,
+    "type": "account",
+    "access_mode": "master",
+    "children": [
+      {
+        "name": "0822 Test Facility",
+        "id": 2864,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Pond Water 60%/40%",
+            "id": 5752,
+            "status": 0,
+            "owner": 2864,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test03-phosphate",
+            "id": 5751,
+            "status": 0,
+            "owner": 2864,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test02-coord-template",
+            "id": 5750,
+            "status": 0,
+            "owner": 2864,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test02-coord",
+            "id": 5749,
+            "status": 0,
+            "owner": 2864,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test01-normal",
+            "id": 5748,
+            "status": 0,
+            "owner": 2864,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "ATLANTA BRAVES",
+        "id": 2874,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "BARTON BRANDS OF KENTUCKY",
+        "id": 2888,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Boiler System",
+        "id": 1495,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "ttest highppr",
+            "id": 5741,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "high_pressure_boiler",
+            "id": 5743,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test high pressure",
+            "id": 5740,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "boiler",
+            "id": 5040,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Well 2",
+            "id": 4628,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Berner Foods",
+            "id": 4952,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Boiler",
+            "id": 3322,
+            "status": 0,
+            "owner": 1495,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Brian",
+        "id": 2363,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Tower",
+            "id": 4718,
+            "status": 0,
+            "owner": 2363,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "CC Tex Surf tcn",
+        "id": 2867,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Chicago Plant",
+        "id": 2427,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Demo Facility",
+        "id": 1208,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Skybitz",
+            "id": 5648,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "RO Test 7-9",
+            "id": 5722,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "RO-Test-9-12",
+            "id": 5728,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "RO Building",
+            "id": 4002,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Sentinel",
+            "id": 5644,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "HP Boiler Test - Samir",
+            "id": 5747,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Paint Spray Booth",
+            "id": 4637,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "SkyBitz System",
+            "id": 5587,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Sentinel",
+            "id": 5563,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Management Monitoring",
+            "id": 5574,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 1,
+            "name": "RO3",
+            "id": 3433,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 4,
+            "name": "Softener",
+            "id": 3117,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 5,
+            "name": "Cooling Tower",
+            "id": 3156,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 6,
+            "name": "Demo RO System",
+            "id": 2754,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 7,
+            "name": "Demo RO1",
+            "id": 2759,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 8,
+            "name": "Boiler System",
+            "id": 2908,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 9,
+            "name": "Demo Calcs",
+            "id": 2729,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 10,
+            "name": "copy",
+            "id": 4957,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 10,
+            "name": "test",
+            "id": 4956,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 10,
+            "name": "Demo System",
+            "id": 2669,
+            "status": 0,
+            "owner": 1208,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Demo Jokiet DOC",
+        "id": 2508,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Test March 28",
+            "id": 5209,
+            "status": 0,
+            "owner": 2508,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "South Cell",
+            "id": 5035,
+            "status": 0,
+            "owner": 2508,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "North Cell",
+            "id": 5034,
+            "status": 0,
+            "owner": 2508,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Demo PDK AG",
+        "id": 2511,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Duke Univ 60_40",
+        "id": 2868,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Chiller Cooling System",
+            "id": 5764,
+            "status": 0,
+            "owner": 2868,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "EQ Playroom  WebMaster",
+        "id": 729,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "W600",
+            "id": 3584,
+            "status": 0,
+            "owner": 729,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "WebMaster",
+            "id": 1056,
+            "status": 0,
+            "owner": 729,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Lewis Inventory Facility",
+        "id": 2695,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "LEWIS RO Test",
+            "id": 5731,
+            "status": 0,
+            "owner": 2695,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Lewis Inventory System",
+            "id": 5414,
+            "status": 0,
+            "owner": 2695,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "NAU Demo",
+        "id": 2444,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Utilities",
+            "id": 4912,
+            "status": 0,
+            "owner": 2444,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Nigel Company",
+        "id": 2509,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Nigel Boiler",
+            "id": 5037,
+            "status": 0,
+            "owner": 2509,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Nigel Tower",
+            "id": 5036,
+            "status": 0,
+            "owner": 2509,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "PEI POWER",
+        "id": 2883,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Production",
+        "id": 2304,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Area 1",
+            "id": 4629,
+            "status": 0,
+            "owner": 2304,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Samir Test Clone",
+        "id": 2885,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Pond Water 60%/40%",
+            "id": 5770,
+            "status": 0,
+            "owner": 2885,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test03-phosphate",
+            "id": 5769,
+            "status": 0,
+            "owner": 2885,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test02-coord-template",
+            "id": 5768,
+            "status": 0,
+            "owner": 2885,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test02-coord",
+            "id": 5767,
+            "status": 0,
+            "owner": 2885,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test01-normal",
+            "id": 5766,
+            "status": 0,
+            "owner": 2885,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Stanford University Energy Center",
+        "id": 2890,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Hot Water Loops",
+            "id": 5774,
+            "status": 0,
+            "owner": 2890,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Chilled Water Loops",
+            "id": 5773,
+            "status": 0,
+            "owner": 2890,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Cooling Towers",
+            "id": 5772,
+            "status": 0,
+            "owner": 2890,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Boilers",
+            "id": 5771,
+            "status": 0,
+            "owner": 2890,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Test 5",
+        "id": 2510,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Test Aug 26 HP Blrs",
+            "id": 5753,
+            "status": 0,
+            "owner": 2510,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "PO4 Continuum HP Blr Test",
+            "id": 5746,
+            "status": 0,
+            "owner": 2510,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Coord",
+            "id": 5742,
+            "status": 0,
+            "owner": 2510,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "South",
+            "id": 5039,
+            "status": 0,
+            "owner": 2510,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "North",
+            "id": 5038,
+            "status": 0,
+            "owner": 2510,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "TEST ABC CONDO",
+        "id": 2507,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "BOILERS",
+            "id": 5032,
+            "status": 0,
+            "owner": 2507,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Test Facility John Lewis",
+        "id": 2841,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Test Cooling System _ John Lewis",
+            "id": 5701,
+            "status": 0,
+            "owner": 2841,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "TROPICANA RESORT & CASINO  DIP",
+        "id": 2891,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "VANDERBILT UNIVERSITY",
+        "id": 2886,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master"
+      },
+      {
+        "name": "Water Purification Facility",
+        "id": 1516,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "monday",
+            "id": 5726,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test910",
+            "id": 5725,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "911",
+            "id": 5727,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "912",
+            "id": 5729,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "ROtestMulti",
+            "id": 5765,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "913",
+            "id": 5730,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Pretreatment System",
+            "id": 3757,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Test972",
+            "id": 5724,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Boiler Example",
+            "id": 5653,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "TSwitzer RO test",
+            "id": 5282,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test97",
+            "id": 5723,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "ROtest9218",
+            "id": 5718,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "test111",
+            "id": 5719,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "ROTest96",
+            "id": 5720,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 1,
+            "name": "Reverse Osmosis System",
+            "id": 3759,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 2,
+            "name": "Distribution System",
+            "id": 3758,
+            "status": 0,
+            "owner": 1516,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "Water Purification Facility #2",
+        "id": 1810,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Pretreatment System #2",
+            "id": 3785,
+            "status": 0,
+            "owner": 1810,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 2,
+            "name": "Distribution System #2",
+            "id": 3787,
+            "status": 0,
+            "owner": 1810,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      },
+      {
+        "name": "William Rainey Harper College",
+        "id": 2617,
+        "level": 2,
+        "owner": 1207,
+        "type": "facility",
+        "access_mode": "master",
+        "children": [
+          {
+            "displayorder": 0,
+            "name": "Hot Water Loops",
+            "id": 5233,
+            "status": 0,
+            "owner": 2617,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Chilled Water Loops",
+            "id": 5232,
+            "status": 0,
+            "owner": 2617,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Cooling Towers",
+            "id": 5231,
+            "status": 0,
+            "owner": 2617,
+            "access_mode": "master",
+            "type": "system"
+          },
+          {
+            "displayorder": 0,
+            "name": "Boilers",
+            "id": 5230,
+            "status": 0,
+            "owner": 2617,
+            "access_mode": "master",
+            "type": "system"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Vinay Kumar Personal Account",
+    "id": -90012669,
+    "access_mode": "master",
+    "type": "account",
+    "children": [
+      {
+        "name": "Vinay Kumar Personal Facility",
+        "id": -91012669,
+        "type": "facility",
+        "readonly": false
+      }
+    ],
+    "readonly": false
+  }
+]

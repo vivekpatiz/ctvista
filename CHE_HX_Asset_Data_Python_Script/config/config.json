@@ -1,0 +1,13 @@
+{
+  "pathOfxlsx" : "/etc/DHRD-CT-HX-POC/HX-Script-ingestion/techinical_name_script.xlsx",
+  "destofxlsx" : "/etc/DHRD-CT-HX-POC/HX-Script-ingestion/dest_folder6/techinical_name_script.xlsx",
+  "dataBaseName": "ctvistaplusnew3",
+  "dataBaseHost" : "db2.ctvistaplus.com",
+  "dataBaseUser" : "ddg",
+  "dataBasePassword" : "ddg@ctvista+1024",
+  "logFileName" : "../logs/application.log",
+  "sheet2Name" : "Sheet2",
+ "systemMetadata" : "System_metadata",
+  "dataSheetName": "Data_paste_sheet"
+
+}

@@ -1,0 +1,114 @@
+<div class="dashboard-header">
+  <section class="logo-section">
+    <img class="logo" alt="ctvistaLogo"  [src]="envURl.ctvistaLogo"/>
+  </section>
+  <section class="dashboard-body">
+    <mat-card>
+      <h2 class="dashboard-header">{{condeserName}}</h2>
+      <div class="p-fluid p-formgrid p-grid menu-main">
+        <div class="p-field p-col">
+          <label for="chart" class="label-class">Select Charts</label><br>
+          <mat-form-field appearance="none">
+            <mat-select placeholder="Select charts" disableOptionCentering [formControl]="chartControl"
+              [multiple]="true">
+              <mat-option *ngFor="let chart of allCharts" [value]="chart.id"
+                [disabled]="selectedChartsId.length >= 2 && !selectedChartsId.includes(chart.id)" 
+                (onSelectionChange)="selectCustomChartForComparison($event.source.value, $event.source.selected, chart)">
+                {{chart.displayName}}
+              </mat-option>
+            </mat-select>
+
+            <em class="pi pi-chevron-down" style="
+                    margin-right: 0.875em;
+                    margin-top: -5px;
+                    color: #7792b2;
+                  "></em>
+          </mat-form-field>
+        </div>
+        <div class="p-field p-col">
+          <label for="dateRange" class="label-class">Date Range</label><br>
+          <input type="text" ngxDaterangepickerMd [(ngModel)]="initDate" class="inp-icon inp-date-range"
+            [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [showCancel]="true" [ranges]="ranges"
+            placeholder="Choose date" (change)="changeDate($event)" pInputText />
+        </div>
+        <div class="p-field p-col "
+          [ngClass]="{ 'custom-slider-disabled': disableLoader , 'custom-slider':!disableLoader }">
+          <label for="loadRange" class="label-class">Load Range</label>
+          <div style="display: flex; flex-direction: row-reverse">
+            <span *ngIf="!disableLoader" class="lagent">{{options.ceil}}</span>
+            <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ng5-slider>
+            <span *ngIf="!disableLoader" class="lagent">{{options.floor}}</span>
+          </div>
+        </div>
+        <div class="p-field p-col">
+          <button mat-raised-button [disabled]="disableLoader" matTooltip="click to change the load range of chart"
+            (click)="getChartByLoad()" style="margin-top: 3em;font-size:12 px; color: #337AB7">Apply</button>
+        </div>
+        <div class="p-field p-col" style="display: flex; flex-direction: row-reverse;">
+          <button class="y-axisLimit-btn" mat-raised-button class="btn" (click)="openModel($event)"
+            [disabled]="selectedChartsId.length === 0">
+            Y-axis limit
+          </button>
+          <em style="position: absolute; top: 10em; right: 14em; color: #ccc" class="fa info-icon"
+            aria-hidden="true"></em>
+          <p style="
+              position: absolute;
+              top: 10.5em;
+              color: #666666;
+              font-size: 13px;
+              font-weight: 400;
+            ">Adjust min and max of Y axes <br/>
+            to see the charts properly,
+          </p>
+        </div>
+      </div>
+
+
+
+      <div class="p-fluid p-formgrid p-grid menu-main">
+        <div class="p-field p-col">
+          <hr />
+          <br />
+          <div *ngIf="!showSpinner && (selectedChartsId.length > 0) && multiSerieschartdata.length > 0">
+            <br />
+            <dhr-chart [chartData]="multiSerieschartdata" [xAxisLabel]="multiSerieschartXlabels"
+              [yAxislabel]="multiSerieschartYlabels" magicType="false" saveAsImage="true" [isMultiSeries]="true">
+            </dhr-chart>
+          </div>
+          <div *ngIf="!showSpinner && selectedChartsId.length > 0 && multiSerieschartdata.length === 0">
+            <div class="norecrds-img"></div>
+            <br />
+            <div style="color: #666666; font-size: 18px; text-align: center">
+              No Data Available
+            </div>
+            <br />
+            <br />
+            <div style="color: #808080; font-size: 14px; text-align: center">
+              There is no available data to show.
+            </div>
+            <div style="color: #808080; font-size: 14px; text-align: center">
+              Please select a different date range/ load range & try again
+            </div>
+          </div>
+          <div *ngIf="selectedChartsId.length === 0" class="norecrds-div">
+            <div class="norecrds-img"></div>
+            <br />
+            <div style="color: #666666; font-size: 18px; align-self: center">
+              Select Charts to Compare
+            </div>
+            <br />
+            <br />
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              You have not selected any chart yet
+            </div>
+            <div style="color: #808080; font-size: 14px; align-self: center">
+              Please select the Charts from the dropdown to compare
+            </div>
+          </div>
+          <mat-spinner style="color: #337ab7" *ngIf="showSpinner" [strokeWidth]="2.5" mode="indeterminate"
+            [diameter]="60" title="Loading charts....."></mat-spinner>
+        </div>
+      </div>
+    </mat-card>
+  </section>
+</div>

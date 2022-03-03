@@ -1,0 +1,27 @@
+
+{
+    
+    "baseURL": "http://172.31.10.28:8082/",
+    "getAPICondenser" : "v1/AssetManagement/assets/",
+    "deleteAPICondenser" : "v1/AssetManagement/asset/",
+    "baseChartURL": "http://172.31.10.28:8083/",
+    "getChartAPI": "v1/TimeSeries/charts",
+    "postCondenserAPI" : "v1/AssetManagement/asset",
+    "getCondenserByIsAPI" : "v1/AssetManagement/condenser-asset/",
+    "patchCondenserAPI": "v1/AssetManagement/asset/",
+    "chartKey":"v1/AssetManagement/condenser-chart-key/",
+    "condenserLoad":"v1/AssetManagement/condenser-load/",
+    "UOMBaseURL":"http://172.31.10.28:8092/UOM/",
+    "UOMGetURL":"api/v1/uom",
+    "getFacilities": "https://develop.ctvistaplus.com/service/accounts",
+    "getPlantDataByFacility": "v1/AssetManagement/asset-data",
+    "getUserProfile":"https://develop.ctvistaplus.com/service/profile",
+    "baseReportURL":"http://172.31.10.28:8084/",
+    "getReportList":"api/v1/ReportManagement/report-all/2?size=100&page=0&sort=createdAt&order=ASCENDING",
+    "getLogo":"https://new.ctvistaplus.com//logo/",
+    "deleteReport":"api/v1/ReportManagement/reports/",
+    "createReport":"api/v1/ReportManagement/report/",
+    "getReportById":"api/v1/ReportManagement/report-id/",
+    "reportUrl":"http://172.31.10.28:8086/condenser/report/preview",
+    "downloadReport":"http://172.31.10.28:8091/pdf"
+}

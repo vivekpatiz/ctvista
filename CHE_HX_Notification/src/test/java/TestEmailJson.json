@@ -1,0 +1,15 @@
+{
+    "to": "mohammad.bagali@danaherdigital.com",
+    "from": "service@pobox.ctvistaplus.com",
+    "subject":"Test Email",
+    "body": "Demo Text",
+    "bcc": [
+        "",
+        ""
+    ],
+    "cc": [
+        "sandipan.mallick@danaherdigital.com",
+		"sudhakar.kannan@danaherdigital.com"
+    ],
+    "sentDate": ""
+}

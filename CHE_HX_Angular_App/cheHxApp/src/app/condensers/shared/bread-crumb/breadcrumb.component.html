@@ -1,0 +1,13 @@
+<div class="position">
+    <ol>
+      <li 
+        *ngFor="let item of breadcrumbList; let i = index"
+        [class.active]="i===breadcrumbList.length-1">
+        <a class="font-header" [routerLink]="item.path" *ngIf="i < breadcrumbList.length-2" [ngClass] = "{'first-element': i===0}">
+          {{ item.label }} /
+        </a> 
+        <a class="font-header" [routerLink]="item.path" *ngIf="i===breadcrumbList.length-2">{{ item.label }}</a>
+      </li>
+    </ol>
+    <h3 class = "page-title" *ngIf = "breadcrumbList.length"><i (click)="navButton(breadcrumbList)" class="fa fa-long-arrow-left" style="cursor: pointer;" aria-hidden="true"></i>&nbsp;{{breadcrumbList[breadcrumbList.length-1].label}}</h3>
+  </div>

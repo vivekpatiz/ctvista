@@ -1,0 +1,25 @@
+<mat-grid-list cols="3" rowHeight="3:1.25" [gutterSize]="'10px'">
+    <mat-grid-tile style="border: 1px solid; border-color: #E0E0E0;" *ngFor="let item of chartArray; let i = index">
+      <div class="card" style="width: 98%">
+        <div class="card-body">
+          <h5 class="card-title">
+            <div class="p-col" style="padding-bottom: 0.5em;
+            padding-top: 3.5em;color: #666666; font-family: 'Segoe UI' !important;">{{item.chartLabel}}</div>
+            <div class="p-col" [ngStyle]="colorCodeForAvgValue(item)" style="font-size:16px;padding: 0 0 0 8px; font-family: 'Segoe UI' !important;">{{item.avgKpi}}</div>
+            <span><em style="position: absolute;top: 0.7em;right: 1em; height:25px; cursor: pointer;color: #ccc"
+                class="fa info-icon" (click)="openModel($event, item)"></em>
+            </span>
+          </h5>
+          <p class="card-text">           
+            <dhr-chart [chartData]="item.chartdata" [xAxisLabel]="item.xlabel" [yAxislabel]="item.yLabel" 
+             [isKpiOverView]="true" [color]="colorCodeForAvgValue(item).color">
+            </dhr-chart>
+          </p>
+          <div class="p-field p-grid tnf">
+            <div class="fromDate-kpi-overview">{{fromDateToBeShownOnCards}}</div>
+            <div class="toDate-kpi-overview">{{toDateToBeShownOnCards}}</div>
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>

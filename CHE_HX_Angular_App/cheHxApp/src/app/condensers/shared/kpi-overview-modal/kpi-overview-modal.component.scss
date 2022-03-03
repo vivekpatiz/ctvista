@@ -1,0 +1,42 @@
+.modal-container{
+    width: 45em;
+    height: 25em;
+}
+.modal-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 4em;
+}
+.staypagebtn{
+    margin-left: 1em;
+    background: #ffffff;
+    color: #7fc77f;
+    margin-right: 1em;
+}
+.leavepagebtn{
+    background: #5cb85c;
+    color: #ffffff;
+    margin-right: 1em;
+}
+.cross-btn{
+    text-decoration: none;
+    border: 0px;
+    background: #dbe1e5;
+    cursor: pointer;
+}
+.cross-btn:focus{
+    border: 1px solid #dbe1e5;
+    background: #dbe1e5;
+}
+
+.dialog-content{
+    height: 250px !important;
+    padding-left: .8em; 
+    font-size: 13px;
+    padding-right: .8em;
+    overflow: auto;
+}

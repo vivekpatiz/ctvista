@@ -1,0 +1,13 @@
+:host ::ng-deep .p-toast .p-toast-message .p-toast-message-content {
+    padding: 1rem;
+    border-width: 0 0 0 6px;
+    flex-direction: row-reverse;
+}
+:host ::ng-deep .p-toast .p-toast-message .p-toast-icon-close {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: transparent;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-left: 3px;
+}

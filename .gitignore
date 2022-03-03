@@ -1,0 +1,42 @@
+/CHE_HX_UOM/bin
+/CHE_HX_Calculation_Engine/bin
+/CHE_HX_Asset_Management/bin/main
+/CHE_HX_Time_Series/bin/main
+CHE_HX_Asset_Management/bin/main/application.properties
+CHE_HX_Time_Series/bin/main/application.properties
+CHE_HX_Calculation_Engine/bin/main/application.properties
+CHE_HX_Calculation_Engine/bin/main/application.properties
+CHE_HX_Time_Series/bin/main/application.properties
+CHE_HX_Calculation_Engine/bin/main/application.properties
+CHE_HX_Time_Series/bin/main/application.properties
+/CHE_HX_Case_Management/bin/main
+
+# dependencies
+CHE_HX_Angular_App/cheHxApp/node_modules
+/CHE_HX_Angular_App/cheHxApp/.scannerwork
+
+# compiled output
+CHE_HX_Angular_App/cheHxApp/dist
+CHE_HX_Angular_App/cheHxApp/tmp
+CHE_HX_Angular_App/cheHxApp/out-tsc
+# Only exists if Bazel was run
+CHE_HX_Angular_App/cheHxApp/bazel-out
+
+
+# misc
+CHE_HX_Angular_App/cheHxApp/.sass-cache
+CHE_HX_Angular_App/cheHxApp/connect.lock
+CHE_HX_Angular_App/cheHxApp/coverage
+CHE_HX_Angular_App/cheHxApp/libpeerconnection.log
+CHE_HX_Angular_App/cheHxApp/npm-debug.log
+CHE_HX_Angular_App/cheHxApp/yarn-error.log
+CHE_HX_Angular_App/cheHxApp/testem.log
+
+# ---- SonarQube
+CHE_HX_Angular_App/cheHxApp/.sonar/
+CHE_HX_Angular_App/cheHxApp/.scannerwork/
+/CHE_HX_Time_Series/bin
+CHE_HX_Asset_Management/bin/main/lombok.config
+CHE_HX_Asset_Management/bin/main/lombok.config
+CHE_HX_Asset_Management/bin/default/validation.properties
+CHE_HX_Asset_Management/bin/main/lombok.config

@@ -1,0 +1,230 @@
+.menu-main {
+  margin-bottom: -2em;
+}
+.label-class {
+  font-weight: 600;
+  font-size: 12px;
+  color: #333333;
+}
+.lb-unit {
+  color: #a4a4a4;
+  font-weight: 500;
+}
+.invalid-feedback {
+  font-size: 12px;
+  color: red;
+}
+.btn {
+  width: 112px;
+  height: 40px;
+  margin-top: 5em;
+  background: #5cb85c;
+  color: white;
+  &:not(.mat-button-disabled):hover {
+    background: #1b8f1b;
+    color: white;
+  }
+}
+:host ::ng-deep .mat-button-wrapper{
+  font-size: 18px !important;
+  font-weight: 400 !important;
+}
+:host ::ng-deep .mat-tab-label-active {
+  background: #BDBDBD!important;
+  color: #fff!important;
+  font-family: 'Segoe UI Semibold' !important;
+}
+
+input:disabled {
+  background: #f3f5f6;
+}
+:host ::ng-deep .p-disabled {
+  background: #f3f5f6;
+}
+.column {
+  float: left;
+  width: 50%;
+}
+.cb-mndtry-style {
+  color: #FF1717 !important;
+}
+.nxt-btn {
+  width: 144px;
+  height: 30px;
+  background: #337AB7;
+  color: #ffffff;
+  font: normal normal normal 16px/20px Segoe UI;
+}
+.info-icon {
+  background: url(../../../../assets/icons/info.svg) no-repeat 100%;
+   width:40px;
+  height:40px;
+}
+.bck-btn {
+  width:96px;
+  height:37px;
+  margin-right: 10px;
+  background: #ffffff;
+  color: #337AB7;
+  border: 1px solid #C2C2C2;
+}
+.dwnld-btn {
+  width: 236px;
+  height: 37px;
+  background: #337AB7;
+  color: #FFFFFF;
+}
+:host ::ng-deep .dwnld-btn > .mat-button-wrapper{
+  font-size: 16px !important;
+  font-weight: 400px !important;
+}
+:host ::ng-deep .bck-btn > .mat-button-wrapper{
+  font-size: 16px !important;
+  font-weight: 400px !important;
+}
+:host ::ng-deep .nxt-btn > .mat-button-wrapper{
+  font-size: 16px !important;
+  font-weight: 400px !important;
+}
+:host ::ng-deep .drp-dwn .p-dropdown {
+  width: 144px !important;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.helper-text {
+  position: absolute;
+  margin-top: 3px;
+  margin-left: 5px;
+  color: #666666;
+  font-size: 14px;
+}
+:host ::ng-deep .mat-tab-label {
+  height: 40px !important;
+  width: 200px !important;
+  margin-left: 0.575em;
+  font-weight: 400;
+  font-size: 16px;
+  opacity: 1;
+  background: #d8d8d8;
+  border-radius: 10px 10px 0px 0px;
+}
+:host ::ng-deep .mat-tab-label-active {
+  background: #337ab7 !important;
+  color: #ffffff !important;
+}
+:host ::ng-deep .mat-ink-bar {
+  background: #337ab7 !important;
+  height: 2.5px;
+  width: 100% !important;
+  left: 0px !important;
+}
+:host ::ng-deep .mat-tab-body-content {
+  overflow: visible;
+}
+
+:host ::ng-deep .mat-tab-body-wrapper {
+  height: calc(70vh - 20px);
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background{
+  background-color:#3F92DA !important;
+}
+:host ::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border: 3px solid #83C4FC;
+}
+:host ::ng-deep .mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background {
+background-color: #DDDDDD !important;
+}
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+.disableCalculateData{
+  pointer-events:none;
+  cursor: not-allowed;
+  background: #f3f5f6;
+  height: 36px !important;
+  font-size: 14px !important;
+}
+.input-text{
+  height: 36px !important;
+  font-size: 14px !important;
+}
+.disable-hist-tag{
+  pointer-events:none;
+  cursor: not-allowed;
+}
+.dwnldtmpl{
+  cursor: pointer;
+  border:none;
+  opacity: 1; 
+  color: white; 
+  width: 185px;  
+  height: 30px; 
+  background: #337AB7;
+  border-radius: 3px;
+}
+.backbtn{
+  background: white; 
+  cursor: pointer; 
+  width: 96px;
+  height: 30px;
+  border: 1px solid #C2C2C2;
+  border-radius: 3px;
+  font-family:Segoe UI;
+  color: #337AB7;
+}
+.importFile{
+  cursor: pointer;
+  border:none;
+  opacity: 1; 
+  color: white; 
+  width: 104px;  
+  height: 30px; 
+  background: #337AB7;
+  border-radius: 3px;
+}
+.discard{
+  background: none; 
+  cursor: pointer; 
+  border:none;
+  width: 52px;
+  height: 21px;
+  font-family:Segoe UI;
+  color: #337AB7;
+  border-radius: 3px;
+}
+.logo{
+  width: 68px;
+  height: 24px;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+}
+.logoDownload{
+  width: 68px;
+  height: 18px;
+}
+.reviewbtn{
+  cursor: pointer;
+  border:none;
+  opacity: 1; 
+  color: white; 
+  width: 136px;  
+  height: 30px; 
+  background: #337AB7;
+  border-radius: 3px;
+}
+.disablereviewbtn{
+  border:none;
+  opacity: 1; 
+  pointer-events:none;
+  cursor: not-allowed;
+  background: #e0e0e0;
+  width: 136px;  
+  height: 30px; 
+  border-radius: 3px;
+}

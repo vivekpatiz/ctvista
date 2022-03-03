@@ -1,0 +1,4 @@
+ **********************31/08/2020******************
+ -------pressure_inHg to pressure_in_hg  renamed---------
+ ALTER TABLE dhrd_steam_pressure_temp_master
+CHANGE COLUMN `pressure_inHg` `pressure_in_hg` DOUBLE NOT NULL ;

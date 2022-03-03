@@ -1,0 +1,44 @@
+.stepper-input{
+    display: flex;
+}
+.stepper-input-field{
+    width: 3em;
+    text-align: center;
+    font-size: 16px;
+    padding-top: .3em;
+    font-weight: 700;
+}
+.toggle-less {
+    border: 2px solid #3F92DA;
+    background: #fff;
+    width: 46px;
+    height: 30px;
+    cursor: pointer;
+}
+.toggle-more {
+    border: 2px solid #3F92DA;
+    background: #fff;
+    width: 46px;
+    height: 30px;
+    cursor: pointer;
+}
+.pi-minus {
+    color:#3F92DA;
+    width: 14px;
+}
+.pi-plus {
+    color:#3F92DA;
+    width: 14px;
+    height: 14px;
+}
+button:disabled,
+button[disabled]{
+  border: 2px solid #DDDDDD;
+  color: #DDDDDD;
+}
+button:disabled .pi-minus {
+    color: inherit;
+}
+button:disabled .pi-plus {
+    color: inherit;
+}

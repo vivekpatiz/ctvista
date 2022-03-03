@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\cheHxApp",
+    "\\cheHxApp\\src",
+    "\\cheHxApp\\src\\app",
+    "\\cheHxApp\\src\\app\\condensers",
+    "\\cheHxApp\\src\\app\\condensers\\create-report",
+    "\\cheHxApp\\src\\app\\condensers\\create-report\\component",
+    "\\cheHxApp\\src\\app\\condensers\\create-report\\component\\report-preview",
+    "\\cheHxApp\\src\\app\\condensers\\report-listview",
+    "\\cheHxApp\\src\\app\\condensers\\report-listview\\component"
+  ],
+  "SelectedNode": "\\cheHxApp",
+  "PreviewInSolutionExplorer": false
+}
